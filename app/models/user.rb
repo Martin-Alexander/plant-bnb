@@ -20,4 +20,12 @@ class User < ApplicationRecord
     received = Message.where(receiver: self)
     sent.or(received).destroy_all
   end
+
+  def number_of_ratings
+    Rating.joins(:plant).where(plants: { user: self }).count
+  end
+
+  def average_rating
+    Rating.joins(:plant).where(plants: { user: self }).average(:stars)
+  end
 end

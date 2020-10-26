@@ -63,3 +63,5 @@ gem "cloudinary", "~> 1.18"
 gem "dotenv-rails", "~> 2.7"
 
 gem "pundit", "~> 2.1"
+
+gem "simple_form", "~> 5.0"

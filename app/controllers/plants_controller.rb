@@ -8,6 +8,8 @@ class PlantsController < ApplicationController
 
   def show
     @plant = Plant.find(params[:id])
+    @plant_interest = PlantInterest.find_or_initialize_by(plant: @plant, user: current_user)
+    @users_other_plants = policy_scope(@plant.user.plants).where.not(id: @plant.id).includes(:user)
     authorize(@plant)
   end
 end

@@ -1,0 +1,59 @@
+<h1><%= @plant.title %></h1>
+
+<% if user_signed_in? %>
+  <% favourite = Favourite.find_or_initialize_by(user: current_user, plant: @plant) %>
+
+  <% if favourite.persisted? %>
+    <% if policy(favourite).destroy? %>
+      <p><%= link_to "unfavourite", favourite_path(favourite), method: :delete %></p>
+    <% end %>
+  <% else %>
+    <% if policy(favourite).create? && @plant.user != current_user %>
+      <p><%= link_to "favourite", plant_favourites_path(@plant), method: :post %></p>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @plant.price_cents == 0 %>
+  <p>FREE</p>
+<% else %>
+  <p><%= number_to_currency @plant.price_cents / 100 %></p>
+<% end %>
+
+<p>Posted <%= time_ago_in_words(@plant.created_at) %> ago in Montreal</p>
+
+<%= cl_image_tag @plant.cover_photo.key %>
+
+<h3>Description</h3>
+<p><%= @plant.description %></p>
+
+<% if @plant_interest.persisted? %>
+  <h2>You've already contacted <%= @plant.user.name %> regarding this plant</h2>
+<% elsif policy(@plant_interest).create? && current_user != @plant.user %>
+  <h2>Contact <%= @plant.user.name %> regarding this plant</h2>
+  <%= form_with url: plant_plant_interests_path(@plant) do %>
+    <div><%= text_area_tag "message[content]" %></div>
+    <div><%= submit_tag "Send Message" %></div>
+  <% end %>
+<% end %>
+
+<%= cl_image_tag @plant.user.profile_picture.key, width: 80, height: 80, crop: :fill %>
+<p><%= @plant.user.name %></p>
+<p>Rating: <%= @plant.user.average_rating %> (<%= @plant.user.number_of_ratings %>)</p>
+
+<h3><%= @plant.user.name %>'s other plants</h3>
+<% @users_other_plants.each do |plant| %>
+  <%= link_to plant_path(plant) do %>
+    <%= cl_image_tag plant.cover_photo.key, width: 300 %>
+  <% end %>
+
+  <h4><%= plant.title %></h4>
+
+  <p><%= time_ago_in_words plant.created_at %> ago</p>
+
+  <% if plant.price_cents == 0 %>
+    <p>FREE</p>
+  <% else %>
+    <p><%= number_to_currency plant.price_cents / 100 %></p>
+  <% end %>
+<% end %>
