@@ -55,3 +55,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "devise", "~> 4.7"
 
 gem "pg", "~> 1.2"
+
+gem "pry-byebug", "~> 3.9"
+
+gem "cloudinary", "~> 1.18"
+
+gem "dotenv-rails", "~> 2.7"

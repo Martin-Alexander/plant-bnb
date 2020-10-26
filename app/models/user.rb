@@ -11,6 +11,10 @@ class User < ApplicationRecord
 
   before_destroy :destroy_messages
 
+  validates :name, presence: true, length: { maximum: 20 }
+
+  has_one_attached :profile_picture
+
   def destroy_messages
     sent = Message.where(sender: self)
     received = Message.where(receiver: self)
