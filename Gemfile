@@ -61,3 +61,5 @@ gem "pry-byebug", "~> 3.9"
 gem "cloudinary", "~> 1.18"
 
 gem "dotenv-rails", "~> 2.7"
+
+gem "pundit", "~> 2.1"

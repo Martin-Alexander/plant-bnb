@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :plants do
-    resources :favourites, only: [:index, :create, :destroy]
+    resources :favourites, only: [:index, :create]
     resources :plant_interests, only: [:create]
     resources :chats, only: [:index]
   end
 
-  resources :favourites, only: [:index]
+  resources :favourites, only: [:index, :destroy]
   resources :my_plants, only: [:index]
 
   resources :messages, only: [:index]

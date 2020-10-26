@@ -11,4 +11,8 @@ class Plant < ApplicationRecord
 
   has_many_attached :pictures
   has_one_attached :cover_photo
+
+  def public
+    !private
+  end
 end

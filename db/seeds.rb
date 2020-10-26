@@ -64,7 +64,8 @@ martins_plant_4 = create_plant_from_existing_cl_file(
   user: martin,
   price_cents: 900,
   title: "28'' Artificial Foliage Plant",
-  description: "Indoor evergreen plant, in different sizes. Easy to care."
+  description: "Indoor evergreen plant, in different sizes. Easy to care.",
+  private: true
 )
 
 sangwoos_plant_1 = create_plant_from_existing_cl_file(
@@ -104,7 +105,8 @@ sangwoos_plant_5 = create_plant_from_existing_cl_file(
   user: sangwoo,
   price_cents: 1100,
   title: "PLANTES DE FIGUES EN POT",
-  description: "Indoor evergreen plant, in different sizes. Easy to care."
+  description: "Indoor evergreen plant, in different sizes. Easy to care.",
+  private: true
 )
 
 Favourite.create!(user: martin, plant: sangwoos_plant_1)
