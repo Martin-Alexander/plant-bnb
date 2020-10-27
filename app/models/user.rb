@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :ratings, dependent: :destroy
   has_many :plant_interests, dependent: :destroy
   has_many :favourites, dependent: :destroy
-  has_many :unread_message_counters, dependent: :destroy
+  has_many :chats, dependent: :destroy
 
   before_destroy :destroy_message_related_records
 
@@ -31,6 +31,6 @@ class User < ApplicationRecord
     received = Message.where(receiver: self)
     sent.or(received).destroy_all
 
-    UnreadMessageCounter.where(other_user: self).destroy_all
+    Chat.where(other_user: self).destroy_all
   end
 end

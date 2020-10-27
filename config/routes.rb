@@ -6,14 +6,16 @@ Rails.application.routes.draw do
   resources :plants do
     resources :favourites, only: [:index, :create]
     resources :plant_interests, only: [:create]
-    resources :chats, only: [:index]
+
+    member do
+      get :chats, to: "plant_chats#index"
+    end
   end
 
   resources :favourites, only: [:index, :destroy]
   resources :my_plants, only: [:index]
 
-  resources :messages, only: [:index]
-  resources :chats, only: [:show]
+  resources :chats, only: [:show, :index]
 
   resources :users, only: [] do
     resources :messages, only: [:create]

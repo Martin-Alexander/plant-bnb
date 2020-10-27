@@ -116,8 +116,8 @@ Rating.create!(user: martin, plant: sangwoos_plant_2, stars: 5)
 
 Rating.create!(user: sangwoo, plant: martins_plant_2, stars: 5)
 
-PlantInterest.create!(user: martin, plant: sangwoos_plant_2)
-Message.create(sender: martin, receiver: sangwoo, content: "Hey Sangwoo! I can come pick it up tomorrow morning. Does 10 work?")
-
 PlantInterest.create!(user: sangwoo, plant: martins_plant_2)
 Message.create(sender: sangwoo, receiver: martin, content: "Hey Martin! Can I come pick up this plant tomorrow morning?")
+
+Chat.create!(user: sangwoo, other_user: martin, number_of_unread_messages: 0)
+Chat.create!(user: martin, other_user: sangwoo, number_of_unread_messages: 1)

@@ -1,9 +1,9 @@
-class CreateUnreadMessageCounters < ActiveRecord::Migration[6.0]
+class CreateChats < ActiveRecord::Migration[6.0]
   def change
-    create_table :unread_message_counters do |t|
+    create_table :chats do |t|
       t.references :user, null: false, foreign_key: true
       t.references :other_user, null: false, foreign_key: { to_table: :users }
-      t.integer :count, default: 0
+      t.integer :number_of_unread_messages, default: 0
 
       t.timestamps
     end

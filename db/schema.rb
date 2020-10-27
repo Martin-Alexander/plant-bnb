@@ -42,6 +42,16 @@ ActiveRecord::Schema.define(version: 2020_10_27_095512) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "chats", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "other_user_id", null: false
+    t.integer "number_of_unread_messages", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["other_user_id"], name: "index_chats_on_other_user_id"
+    t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
   create_table "favourites", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "plant_id", null: false
@@ -100,16 +110,6 @@ ActiveRecord::Schema.define(version: 2020_10_27_095512) do
     t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
-  create_table "unread_message_counters", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "other_user_id", null: false
-    t.integer "count", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["other_user_id"], name: "index_unread_message_counters_on_other_user_id"
-    t.index ["user_id"], name: "index_unread_message_counters_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", default: "", null: false
@@ -124,6 +124,8 @@ ActiveRecord::Schema.define(version: 2020_10_27_095512) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "chats", "users"
+  add_foreign_key "chats", "users", column: "other_user_id"
   add_foreign_key "favourites", "plants"
   add_foreign_key "favourites", "users"
   add_foreign_key "messages", "users", column: "receiver_id"
@@ -135,6 +137,4 @@ ActiveRecord::Schema.define(version: 2020_10_27_095512) do
   add_foreign_key "plants", "users"
   add_foreign_key "ratings", "plants"
   add_foreign_key "ratings", "users"
-  add_foreign_key "unread_message_counters", "users"
-  add_foreign_key "unread_message_counters", "users", column: "other_user_id"
 end
