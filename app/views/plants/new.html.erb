@@ -7,6 +7,7 @@
   <%= f.input :price %>
   <%= f.input :cover_photo %>
   <%= f.input :pictures, input_html: { multiple: true } %>
+  <%= f.association :categories %>
 
   <div>
     <%= f.submit "Submit for Approval"%>

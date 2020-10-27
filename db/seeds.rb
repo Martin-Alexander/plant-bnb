@@ -27,6 +27,14 @@ end
 User.destroy_all
 Category.destroy_all
 
+house_plants_category    = Category.create!(name: "house plants")
+for_your_garden_category = Category.create!(name: "for your garden")
+flowers_category         = Category.create!(name: "flowers")
+office_plants_category   = Category.create!(name: "office plants")
+shrubs_category          = Category.create!(name: "shrubs")
+trees_category           = Category.create!(name: "trees")
+artificial_category      = Category.create!(name: "artificial")
+
 martin = User.new( name: "Martin", email: "martin@email.com", password: "123456")
 martin.profile_picture.attach(io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1603708766/plant-bnb/martin.jpg"), filename: "martin", content_type: "image/jpg")
 martin.save!
@@ -40,7 +48,8 @@ martins_plant_1 = create_plant_from_existing_cl_file(
   user: martin,
   price_cents: 900,
   title: "Plante hypoeste rose/pink polka dots plant",
-  description: "Indoor evergreen plant, in different sizes. Easy to care."
+  description: "Indoor evergreen plant, in different sizes. Easy to care.",
+  categories: [trees_category, for_your_garden_category]
 )
 
 martins_plant_2 = create_plant_from_existing_cl_file(
@@ -48,7 +57,8 @@ martins_plant_2 = create_plant_from_existing_cl_file(
   user: martin,
   price_cents: 800,
   title: "Plante mauve oxalis",
-  description: "Indoor evergreen plant, in different sizes. Easy to care."
+  description: "Indoor evergreen plant, in different sizes. Easy to care.",
+  categories: [house_plants_category, artificial_category]
 )
 
 martins_plant_3 = create_plant_from_existing_cl_file(
@@ -56,7 +66,8 @@ martins_plant_3 = create_plant_from_existing_cl_file(
   user: martin,
   price_cents: 0,
   title: "Trinidad Moruga Scorpion bio/ Organic trinidad Moruga ",
-  description: "Indoor evergreen plant, in different sizes. Easy to care."
+  description: "Indoor evergreen plant, in different sizes. Easy to care.",
+  categories: [trees_category, shrubs_category]
 )
 
 martins_plant_4 = create_plant_from_existing_cl_file(
@@ -65,7 +76,8 @@ martins_plant_4 = create_plant_from_existing_cl_file(
   price_cents: 900,
   title: "28'' Artificial Foliage Plant",
   description: "Indoor evergreen plant, in different sizes. Easy to care.",
-  private: true
+  private: true,
+  categories: [trees_category, shrubs_category, office_plants_category]
 )
 
 sangwoos_plant_1 = create_plant_from_existing_cl_file(
@@ -73,7 +85,8 @@ sangwoos_plant_1 = create_plant_from_existing_cl_file(
   user: sangwoo,
   price_cents: 900,
   title: "Artificial Fiddle Leaf Fig Plant",
-  description: "Indoor evergreen plant, in different sizes. Easy to care."
+  description: "Indoor evergreen plant, in different sizes. Easy to care.",
+  categories: [trees_category, office_plants_category]
 )
 
 sangwoos_plant_2 = create_plant_from_existing_cl_file(
@@ -81,7 +94,8 @@ sangwoos_plant_2 = create_plant_from_existing_cl_file(
   user: sangwoo,
   price_cents: 900,
   title: "Plante araignée frisée/ curly spider plant",
-  description: "Indoor evergreen plant, in different sizes. Easy to care."
+  description: "Indoor evergreen plant, in different sizes. Easy to care.",
+  categories: [trees_category, artificial_category]
 )
 
 sangwoos_plant_3 = create_plant_from_existing_cl_file(
@@ -89,7 +103,8 @@ sangwoos_plant_3 = create_plant_from_existing_cl_file(
   user: sangwoo,
   price_cents: 900,
   title: "Bulbes de Canna feuilles rouge",
-  description: "Indoor evergreen plant, in different sizes. Easy to care."
+  description: "Indoor evergreen plant, in different sizes. Easy to care.",
+  categories: [artificial_category, office_plants_category]
 )
 
 sangwoos_plant_4 = create_plant_from_existing_cl_file(
@@ -97,7 +112,8 @@ sangwoos_plant_4 = create_plant_from_existing_cl_file(
   user: sangwoo,
   price_cents: 0,
   title: "Mother-in-law-tongue/Snake Plant/Sansevieria t",
-  description: "Indoor evergreen plant, in different sizes. Easy to care."
+  description: "Indoor evergreen plant, in different sizes. Easy to care.",
+  categories: [trees_category]
 )
 
 sangwoos_plant_5 = create_plant_from_existing_cl_file(
@@ -106,7 +122,8 @@ sangwoos_plant_5 = create_plant_from_existing_cl_file(
   price_cents: 1100,
   title: "PLANTES DE FIGUES EN POT",
   description: "Indoor evergreen plant, in different sizes. Easy to care.",
-  private: true
+  private: true,
+  categories: [trees_category, trees_category]
 )
 
 Favourite.create!(user: martin, plant: sangwoos_plant_1)
