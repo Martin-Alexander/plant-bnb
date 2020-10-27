@@ -28,6 +28,31 @@ class PlantsController < ApplicationController
     end
   end
 
+  def edit
+    @plant = Plant.find(params[:id])
+    authorize(@plant)
+  end
+
+  def update
+    @plant = Plant.find(params[:id])
+    authorize(@plant)
+
+    @plant.assign_attributes(plant_params.except(:pictures))
+
+    if @plant.valid?
+      # TODO: picture specific CRUD
+      if params[:plant][:pictures].present?
+        @plant.pictures.purge
+        @plant.pictures.attach(params[:plant][:pictures])
+      end
+
+      @plant.save
+      redirect_to plant_path(@plant)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def plant_params

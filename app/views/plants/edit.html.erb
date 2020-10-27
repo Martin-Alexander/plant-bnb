@@ -1,0 +1,16 @@
+<h1>Edit "<%= @plant.title %>"</h1>
+<p>Once your edit is approved by PlantBnb moderators it will be publically visible </p>
+
+<%= simple_form_for(@plant) do |f| %>
+  <%= f.input :title %>
+  <%= f.input :description %>
+  <%= f.input :price %>
+  <%= f.input :cover_photo %>
+  <%# TODO: picture specific CRUD  %>
+  <%= f.input :pictures, input_html: { multiple: true } %>
+
+  <div>
+    <%= f.submit "Submit for Approval"%>
+  </div>
+<% end %>
+
