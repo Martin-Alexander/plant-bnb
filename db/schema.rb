@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_231954) do
+ActiveRecord::Schema.define(version: 2020_10_27_095512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,16 @@ ActiveRecord::Schema.define(version: 2020_10_25_231954) do
     t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
+  create_table "unread_message_counters", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "other_user_id", null: false
+    t.integer "count", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["other_user_id"], name: "index_unread_message_counters_on_other_user_id"
+    t.index ["user_id"], name: "index_unread_message_counters_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", default: "", null: false
@@ -125,4 +135,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_231954) do
   add_foreign_key "plants", "users"
   add_foreign_key "ratings", "plants"
   add_foreign_key "ratings", "users"
+  add_foreign_key "unread_message_counters", "users"
+  add_foreign_key "unread_message_counters", "users", column: "other_user_id"
 end
