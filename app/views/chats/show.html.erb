@@ -9,6 +9,14 @@
   <% elsif record.class == PlantInterest %>
     <% plant_interest = record %>
     <div><%= cl_image_tag plant_interest.plant.cover_photo.key, width: 140, height: 100, crop: :fill %></div>
-    <p><%= plant_interest.user.name %> is interested in your plant "<%= plant_interest.plant.title %>"</p>
+    <% if plant_interest.user == current_user %>
+      <p>You are interested in <%= plant_interest.plant.user.name %>'s' plant "<%= plant_interest.plant.title %>"</p>
+    <% else %>
+      <p><%= plant_interest.user.name %> is interested in your plant "<%= plant_interest.plant.title %>"</p>
+    <% end %>
   <% end %>
+<% end %>
+
+<%= simple_form_for([@chat, Message.new]) do |f| %>
+  <%= f.input :content, as: :string, autofocus: true %>
 <% end %>
