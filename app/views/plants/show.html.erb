@@ -24,6 +24,12 @@
 
 <%= cl_image_tag @plant.cover_photo.key %>
 
+<div>
+  <% @plant.pictures.each do |picture| %>
+    <%= cl_image_tag picture.key, width: 100 %>
+  <% end %>
+</div>
+
 <h3>Description</h3>
 <p><%= @plant.description %></p>
 
