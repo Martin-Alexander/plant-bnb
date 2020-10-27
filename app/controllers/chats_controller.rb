@@ -12,6 +12,8 @@ class ChatsController < ApplicationController
 
     @chat.update(number_of_unread_messages: 0)
 
+    @chat.notifications.update_all(read: true)
+
     messages = @chat.messages.order(created_at: :asc).includes(:receiver, :sender)
     your_plant_interests = policy_scope(PlantInterest).joins(:plant).where(user: current_user).includes(:user, :plant)
     plant_interests_of_other_user = policy_scope(PlantInterest).joins(:plant).where(plants: { user: current_user }).includes(:user, :plant)

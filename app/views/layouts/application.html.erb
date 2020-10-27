@@ -28,6 +28,8 @@
       <p><%= link_to "Messages", chats_path %></p>
       <p><%= link_to "My Plants", my_plants_path %></p>
       <p><%= link_to "Post Plant", new_plant_path %></p>
+
+      <%= render "notifications/notifications" %>
     <% else %>
       <p><%= link_to "Sign in", new_user_session_path %></p>
       <p><%= link_to "Sign up", new_user_registration_path %></p>

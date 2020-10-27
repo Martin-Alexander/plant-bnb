@@ -1,0 +1,8 @@
+<% current_user.notifications.order(created_at: :asc).order(:read).each do |notification| %>
+  <p><%= link_to notification.title, chat_path(notification.chat) %></p>
+  <p><%= notification.message_preview %></p>
+  <% if !notification.read %>
+    <p>Unread</p>
+  <% end %>
+  <p><%= time_ago_in_words(notification.created_at) %> ago</p>
+<% end %>

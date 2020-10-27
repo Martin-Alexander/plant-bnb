@@ -24,6 +24,10 @@ class User < ApplicationRecord
     Rating.joins(:plant).where(plants: { user: self }).average(:stars)
   end
 
+  def notifications
+    Notification.joins(chat: :user).where(users: { id: self.id })
+  end
+
   private
 
   def destroy_message_related_records

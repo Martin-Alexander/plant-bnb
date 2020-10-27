@@ -8,7 +8,13 @@ class MessagesController < ApplicationController
     if message.save
       other_users_chat = Chat.find_by(user: chat.other_user, other_user: current_user)
       other_users_chat.number_of_unread_messages += 1
-      other_users_chat.save
+      other_users_chat.save!
+
+      Notification.create!(
+        chat: chat.other_users_chat,
+        title: "New message from #{current_user.name}: \"#{message.content}\"",
+        message: message.content
+      )
 
       redirect_to chat_path(chat)
     end
