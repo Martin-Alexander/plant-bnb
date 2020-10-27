@@ -12,4 +12,12 @@ class PlantPolicy < ApplicationPolicy
   def show?
     record.public || record.user == user
   end
+
+  def create?
+    true
+  end
+
+  def update?
+    record.user == user
+  end
 end
