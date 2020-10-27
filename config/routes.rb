@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :favourites, only: [:index, :destroy]
   resources :my_plants, only: [:index]
+  resources :categories, only: [:show]
 
   resources :chats, only: [:show, :index] do
     resources :messages, only: [:create]

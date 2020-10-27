@@ -15,6 +15,14 @@ class Plant < ApplicationRecord
   has_many_attached :pictures
   has_one_attached :cover_photo
 
+  include PgSearch::Model
+  pg_search_scope(:search_by_title_and_description,
+    against: [ :title, :description ],
+    using: {
+      tsearch: { prefix: true }
+    }
+  )
+
   def public
     !private
   end

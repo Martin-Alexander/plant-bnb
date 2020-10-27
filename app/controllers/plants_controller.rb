@@ -3,7 +3,12 @@ class PlantsController < ApplicationController
 
   def index
     authorize(Plant)
+
     @plants = policy_scope(Plant).includes(:user)
+
+    if params[:search].present?
+      @plants = @plants.search_by_title_and_description(params[:search])
+    end
   end
 
   def show
