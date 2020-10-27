@@ -8,18 +8,13 @@ class User < ApplicationRecord
   has_many :ratings, dependent: :destroy
   has_many :plant_interests, dependent: :destroy
   has_many :favourites, dependent: :destroy
+  has_many :unread_message_counters, dependent: :destroy
 
-  before_destroy :destroy_messages
+  before_destroy :destroy_message_related_records
 
   validates :name, presence: true, length: { maximum: 20 }
 
   has_one_attached :profile_picture
-
-  def destroy_messages
-    sent = Message.where(sender: self)
-    received = Message.where(receiver: self)
-    sent.or(received).destroy_all
-  end
 
   def number_of_ratings
     Rating.joins(:plant).where(plants: { user: self }).count
@@ -27,5 +22,15 @@ class User < ApplicationRecord
 
   def average_rating
     Rating.joins(:plant).where(plants: { user: self }).average(:stars)
+  end
+
+  private
+
+  def destroy_message_related_records
+    sent = Message.where(sender: self)
+    received = Message.where(receiver: self)
+    sent.or(received).destroy_all
+
+    UnreadMessageCounter.where(other_user: self).destroy_all
   end
 end
