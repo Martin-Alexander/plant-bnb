@@ -1,0 +1,87 @@
+<div class="navbar">
+  <div class="navbar__content-container">
+    <div class="navbar__top">
+      <div class="navbar__top-left">
+        <%= link_to root_path, class: "text-decoration-none font-title font-weight-black font-size-36" do %>
+          <span class="font-colour-green">Plant</span>
+          <span class="logo__last-part font-colour-black">Bnb</span>
+        <% end %>
+        <%= form_tag(plants_path, method: :get) do %>
+          <%= text_field_tag :search, params[:search], class: "search-bar", autocomplete: "off", placeholder: "Search for your next new plant..." %>
+        <% end %>
+      </div>
+      <div class="navbar__top-right">
+        <% if user_signed_in? %>
+          <% if controller_name == "favourites" && action_name == "index" %>
+            <%= link_to image_tag("heart--black.svg"), favourites_path, class: "navbar__icon" %>
+          <% else %>
+            <%= link_to image_tag("heart.svg"), favourites_path, class: "navbar__icon" %>
+          <% end %>
+
+          <% if controller_name == "chats" && action_name == "index" %>
+            <%= link_to image_tag("chat_bubble--black.svg"), chats_path, class: "navbar__icon" %>
+          <% else %>
+            <%= link_to image_tag("chat_bubble.svg"), chats_path, class: "navbar__icon" %>
+          <% end %>
+
+          <div class="navbar__icon notifications-container" data-controller="notifications">
+            <% if current_user.notifications.where(read: false).count > 0 %>
+              <div class="notification__badge"></div>
+            <% end %>
+            <%= image_tag "bell.svg", class: "notification-bell", data: { action: "click->notifications#toggleDropdown"} %>
+            <div class="notifications-dropdown" hidden data-target="notifications.dropdown">
+              <h2 class="font-title font-colour-black font-size-30 font-weight-medium">Notifications</h2>
+              <%= link_to "see all notifications", "#", class: "notifications__see-all font-text font-colour-light-grey font-size-18 font-weight-light" %>
+              <div class="notifications-list">
+                <% current_user.notifications.order(:read).order(created_at: :asc).each do |notification| %>
+                  <div class="notification-list-item">
+                    <%= link_to chat_path(notification.chat), class: "notification-list-item__inner" do %>
+                      <p class="notification-list-item__title font-text font-colour-black font-weight-regular font-size-14"><%= notification.title.html_safe %></p>
+                      <p class="notification-list-item__message-preview font-text font-colour-grey font-size-16 font-weight-light">"<%= notification.message_preview.truncate(100) %>"</p>
+                      <div class="notification-list-item__bottom">
+                        <% if !notification.read %>
+                          <p class="notification-list-item__time-ago font-text font-colour-green font-size-13 font-weight-medium"><%= time_ago_in_words(notification.created_at) %> ago</p>
+                          <div class="notification-list-item__unread"></div>
+                        <% else %>
+                          <p class="notification-list-item__time-ago font-text font-colour-grey font-size-13 font-weight-medium"><%= time_ago_in_words(notification.created_at) %> ago</p>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="navbar-account" data-controller="navbar-account">
+            <div class="navbar-account__picture-and-carrot" data-action="click->navbar-account#toggleDropdown">
+              <%= cl_image_tag current_user.profile_picture.key, width: 42, height: 42, crop: :fill, class: "navbar-profile-picture" %>
+              <%= image_tag "carrot_down.svg", class: "navbar-profile-dropdown-carrot" %>
+            </div>
+            <div class="navbar-account__dropdown" data-target="navbar-account.dropdown" hidden>
+              <%= link_to  my_plants_path, class: "text-decoration-none font-text font-colour-light-grey font-size-18" do %>
+                <div>My&nbsp;plants</div>
+              <% end %>
+
+              <%= link_to edit_user_registration_path, class: "text-decoration-none font-text font-colour-light-grey font-size-18" do %>
+                <div>Account</div>
+              <% end %>
+
+              <%= link_to destroy_user_session_path, method: :delete, class: "text-decoration-none font-text font-colour-light-grey font-size-18" do %>
+                <div>Sign&nbsp;out</div>
+              <% end %>
+            </div>
+          </div>
+          <%= link_to "Post Plant", new_plant_path, class: "button-green-small" %>
+        <% else %>
+          <%= link_to "Sign In", new_user_session_path, class: "navbar__sign-in text-decoration-none font-text font-size-20 font-colour-grey" %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "button-green-small" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="navbar__bottom">
+      <% Category.all.each do |category| %>
+        <%= link_to category.name.titleize, category_path(category), class: "font-text font-size-20 font-colour-grey" %>
+      <% end %>
+    </div>
+  </div>
+</div>

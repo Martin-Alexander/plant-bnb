@@ -139,6 +139,6 @@ sangwoos_chat_with_martin = Chat.create!(user: sangwoo, other_user: martin, numb
 martins_chat_with_sangwoo = Chat.create!(user: martin, other_user: sangwoo, number_of_unread_messages: 1)
 Notification.create!(
   chat: martins_chat_with_sangwoo,
-  title: "#{sangwoo.name} is interested in your plant \"#{martins_plant_2.title}\"",
+  title: "<strong>#{sangwoo.name}</strong> is interested in your plant \"<strong>#{martins_plant_2.title}</strong>\"",
   message_preview: message.content
 )

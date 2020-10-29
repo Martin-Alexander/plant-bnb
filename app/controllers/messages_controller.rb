@@ -12,8 +12,8 @@ class MessagesController < ApplicationController
 
       Notification.create!(
         chat: chat.other_users_chat,
-        title: "New message from #{current_user.name}: \"#{message.content}\"",
-        message: message.content
+        title: "New message from <strong>#{current_user.name}</strong>",
+        message_preview: message.content
       )
 
       redirect_to chat_path(chat)

@@ -10,30 +10,9 @@
   </head>
 
   <body>
-    <p><%= link_to "PlantBnb", root_path %></p>
-
-    <%= form_tag(plants_path, method: :get) do %>
-      <%= text_field_tag :search, params[:search], autocomplete: "off" %>
-    <% end %>
-
-    <div>
-      <% Category.all.each do |category| %>
-        <span><%= link_to category.name, category_path(category) %></span>
-      <% end %>
+    <%= render "shared/navbar" %>
+    <div class="page-container">
+      <%= yield %>
     </div>
-
-    <% if user_signed_in? %>
-      <p><%= link_to "Sign out", destroy_user_session_path, method: :delete %></p>
-      <p><%= link_to "Favourites", favourites_path %></p>
-      <p><%= link_to "Messages", chats_path %></p>
-      <p><%= link_to "My Plants", my_plants_path %></p>
-      <p><%= link_to "Post Plant", new_plant_path %></p>
-
-      <%= render "notifications/notifications" %>
-    <% else %>
-      <p><%= link_to "Sign in", new_user_session_path %></p>
-      <p><%= link_to "Sign up", new_user_registration_path %></p>
-    <% end %>
-    <%= yield %>
   </body>
 </html>

@@ -1,0 +1,10 @@
+$page-container-width: 1250px;
+
+.page-container {
+  max-width: $page-container-width;
+  margin: 0 auto;
+}
+
+.display-flex {
+  display: flex;
+}
