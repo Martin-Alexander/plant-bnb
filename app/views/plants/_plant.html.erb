@@ -1,29 +1,39 @@
-<div>
+<div class="plant-card">
   <%= link_to plant_path(plant) do %>
     <%= cl_image_tag plant.cover_photo.key %>
   <% end %>
 
-  <%= cl_image_tag plant.user.profile_picture.key, width: 60, height: 60, crop: :fill %>
-
-  <h2><%= plant.title %></h2>
-
-  <p><%= time_ago_in_words plant.created_at %> ago</p>
-
-  <% if plant.price_cents == 0 %>
-    <p>FREE</p>
-  <% else %>
-    <p><%= number_to_currency plant.price_cents / 100 %></p>
-  <% end %>
+  <%= cl_image_tag plant.user.profile_picture.key, width: 60, height: 60, crop: :fill, class: "plant-card__avatar" %>
 
   <% favourite = Favourite.find_or_initialize_by(user: current_user, plant: plant) %>
 
   <% if favourite.persisted? %>
     <% if policy(favourite).destroy? %>
-      <p><%= link_to "unfavourite", favourite_path(favourite), method: :delete %></p>
+      <%= link_to favourite_path(favourite), method: :delete do %>
+        <%= image_tag "heart_pink--filled.svg", class: "plant-card__heart" %>
+      <% end %>
     <% end %>
   <% else %>
     <% if policy(favourite).create? && plant.user != current_user %>
-      <p><%= link_to "favourite", plant_favourites_path(plant), method: :post %></p>
+      <%= link_to plant_favourites_path(plant), method: :post do %>
+        <%= image_tag "heart_pink.svg", class: "plant-card__heart" %>
+      <% end %>
     <% end %>
   <% end %>
+
+  <div class="plant-card__body">
+    <%= link_to plant_path(plant), class: "text-decoration-none" do %>
+      <h2 class="plant-card__title font-text font-colour-charcoal font-weight-regular font-size-20"><%= plant.title %></h2>
+    <% end %>
+
+    <div class="plant-card__lower">
+      <p class="plant-card__date font-text font-colour-light-grey font-size-14">Montreal | <%= plant.created_at.strftime("%b %e, %Y") %></p>
+
+      <% if plant.price_cents == 0 %>
+        <p class="plant-card__price font-text font-colour-charcoal font-weight-medium font-size-24">FREE</p>
+      <% else %>
+        <p class="plant-card__price font-text font-colour-charcoal font-weight-medium font-size-24"><%= number_to_currency plant.price_cents / 100 %></p>
+      <% end %>
+    </div>
+  </div>
 </div>

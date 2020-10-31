@@ -42,8 +42,8 @@ class Plant < ApplicationRecord
   end
 
   def validate_has_no_more_than_four_pictures
-    if pictures.length > 4
-      errors.add(:pictures, "maximum of four")
+    if pictures.length > 3
+      errors.add(:pictures, "maximum of three")
     end
   end
 end

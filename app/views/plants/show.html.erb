@@ -1,65 +1,131 @@
-<h1><%= @plant.title %></h1>
+<div class="plants-show__container">
 
-<% if user_signed_in? %>
-  <% favourite = Favourite.find_or_initialize_by(user: current_user, plant: @plant) %>
+  <div class="plants-show__left-column">
+    <div class="plants-show__top-left">
+      <div>
+        <h1 class="plants-show__title font-title font-weight-medium font-size-24 font-colour-charcoal"><%= @plant.title %></h1>
 
-  <% if favourite.persisted? %>
-    <% if policy(favourite).destroy? %>
-      <p><%= link_to "unfavourite", favourite_path(favourite), method: :delete %></p>
+        <% if @plant.price_cents == 0 %>
+          <p class="font-text font-weight-medium font-size-24 font-colour-charcoal">FREE</p>
+        <% else %>
+          <p class="font-text font-weight-medium font-size-24 font-colour-charcoal"><%= number_to_currency @plant.price_cents / 100 %></p>
+        <% end %>
+      </div>
+
+      <% favourite = Favourite.find_or_initialize_by(user: current_user, plant: @plant) %>
+
+      <% if favourite.persisted? %>
+        <% if policy(favourite).destroy? %>
+          <%= link_to favourite_path(favourite), method: :delete do %>
+            <%= image_tag "heart_pink--filled.svg" %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% if policy(favourite).create? && @plant.user != current_user %>
+          <%= link_to plant_favourites_path(@plant), method: :post do %>
+            <%= image_tag "heart_pink.svg" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="plant-picture-gallery" data-controller="plant-pictures-gallery">
+      <div
+        class="plant-picture-gallery__main-picture"
+        style="background-image: url('<%= cl_image_path @plant.cover_photo.key %>')"
+        data-target="plant-pictures-gallery.mainPicture"
+      ></div>
+
+      <% if @plant.pictures.any? %>
+        <div class="plant-picture-gallery__thumbnails">
+          <div
+            class="plant-picture-gallery__thumbnail plant-picture-gallery__thumbnail--selected"
+            style="background-image: url('<%= cl_image_path @plant.cover_photo.key %>')"
+            data-action="click->plant-pictures-gallery#selectPicture"
+            data-target="plant-pictures-gallery.thumbnail"
+            data-active="true"
+            data-image-url="<%= cl_image_path @plant.cover_photo.key %>"
+          ></div>
+          <% @plant.pictures.each do |picture| %>
+            <div
+              class="plant-picture-gallery__thumbnail"
+              style="background-image: url('<%= cl_image_path picture.key %>')"
+              data-action="click->plant-pictures-gallery#selectPicture"
+              data-target="plant-pictures-gallery.thumbnail"
+              data-image-url="<%= cl_image_path picture.key %>"
+            ></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <h3 class="plant-show__description-header font-text font-weight-regular font-colour-grey font-size-24">Description</h3>
+    <p class="font-text font-weight-light font-colour-grey font-size-20"><%= @plant.description %></p>
+  </div>
+
+  <div class="plants-show__right-column">
+    <p class="plants-show__time-posted-ago font-text font-colour-grey font-size-18">Posted <%= time_ago_in_words(@plant.created_at) %> ago in Montreal</p>
+    <p class="font-text font-colour-black font-weight-medium font-size-18">View on map</p>
+
+    <% if @plant_interest.persisted? %>
+      <div class="plants-show__contact-form">
+        <h2 class="plants-show__form-title font-text font-colour-charcoal font-size-20 font-weight-medium">You've already contacted <%= @plant.user.name %> regarding this plant</h2>
+      </div>
+    <% elsif policy(@plant_interest).create? && current_user != @plant.user %>
+      <div class="plants-show__contact-form">
+        <h2 class="plants-show__form-title font-text font-colour-charcoal font-size-20 font-weight-medium">Contact <%= @plant.user.name %> regarding this plant</h2>
+        <%= form_with url: plant_plant_interests_path(@plant) do %>
+          <%= text_area_tag "message[content]", "", placeholder: "Write a message...", class: "plants-show__message-content" %>
+          <%= submit_tag "Send Message", class: "button-green button-fluid" %>
+        <% end %>
+      </div>
     <% end %>
-  <% else %>
-    <% if policy(favourite).create? && @plant.user != current_user %>
-      <p><%= link_to "favourite", plant_favourites_path(@plant), method: :post %></p>
-    <% end %>
-  <% end %>
-<% end %>
 
-<% if @plant.price_cents == 0 %>
-  <p>FREE</p>
-<% else %>
-  <p><%= number_to_currency @plant.price_cents / 100 %></p>
-<% end %>
+    <div class="plants-show__plant-owner">
+      <%= cl_image_tag @plant.user.profile_picture.key, width: 80, height: 80, crop: :fill, class: "plants-show__plant-owner-picture" %>
+      <div>
+        <p class="font-text font-colour-grey font-weight-regular font-size-24"><%= @plant.user.name %></p>
+        <div class="plant-show__plant-owner-rating">
+          <p>
+            <% @plant.user.average_rating.floor.times do %>
+              <%= image_tag "star--filled.svg", style: "margin-right: -5px;" %>
+            <% end %>
 
-<p>Posted <%= time_ago_in_words(@plant.created_at) %> ago in Montreal</p>
+            <% (5 - @plant.user.average_rating.floor).times do %>
+              <%= image_tag "star.svg", style: "margin-right: -5px;" %>
+            <% end %>
+          </p>
+          <p class="font-text font-colour-grey font-weight-regular font-size-20"><%= @plant.user.average_rating %></p>
+          <p class="font-text font-colour-light-grey font-weight-regular font-size-20">(<%= @plant.user.number_of_ratings %> reviews)</p>
+        </div>
+        <p class="font-text font-colour-black font-weight-regular font-size-20">View all listings</p>
+      </div>
+    </div>
 
-<%= cl_image_tag @plant.cover_photo.key %>
+    <div class="plants-show__other-plants">
+      <h3 class="plants-show__other-plants-title font-text font-size-24 font-weight-regular font-colour-grey"><%= @plant.user.name %>'s other plants</h3>
 
-<div>
-  <% @plant.pictures.each do |picture| %>
-    <%= cl_image_tag picture.key, width: 100 %>
-  <% end %>
+      <% @users_other_plants.each do |plant| %>
+        <div class="users-other-plant-card">
+          <%= link_to plant_path(plant) do %>
+            <%= cl_image_tag plant.cover_photo.key, width: 400, height: 200, crop: :fill %>
+          <% end %>
+
+          <div class="users-other-plant-card__body">
+            <%= link_to plant.title, plant_path(plant), class: "text-decoration-none font-text font-weight-regular font-size-20 font-colour-charcoal" %>
+
+            <div class="users-other-plant-card__bottom">
+              <p class="font-text font-weight-regular font-size-14 font-colour-light-grey">Montreal | <%= plant.created_at.strftime("%b %e, %Y") %></p>
+
+              <% if plant.price_cents == 0 %>
+                <p class="font-text font-weight-medium font-size-24 font-colour-charcoal">FREE</p>
+              <% else %>
+                <p class="font-text font-weight-medium font-size-24 font-colour-charcoal"><%= number_to_currency plant.price_cents / 100 %></p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<h3>Description</h3>
-<p><%= @plant.description %></p>
-
-<% if @plant_interest.persisted? %>
-  <h2>You've already contacted <%= @plant.user.name %> regarding this plant</h2>
-<% elsif policy(@plant_interest).create? && current_user != @plant.user %>
-  <h2>Contact <%= @plant.user.name %> regarding this plant</h2>
-  <%= form_with url: plant_plant_interests_path(@plant) do %>
-    <div><%= text_area_tag "message[content]" %></div>
-    <div><%= submit_tag "Send Message" %></div>
-  <% end %>
-<% end %>
-
-<%= cl_image_tag @plant.user.profile_picture.key, width: 80, height: 80, crop: :fill %>
-<p><%= @plant.user.name %></p>
-<p>Rating: <%= @plant.user.average_rating %> (<%= @plant.user.number_of_ratings %>)</p>
-
-<h3><%= @plant.user.name %>'s other plants</h3>
-<% @users_other_plants.each do |plant| %>
-  <%= link_to plant_path(plant) do %>
-    <%= cl_image_tag plant.cover_photo.key, width: 300 %>
-  <% end %>
-
-  <h4><%= plant.title %></h4>
-
-  <p><%= time_ago_in_words plant.created_at %> ago</p>
-
-  <% if plant.price_cents == 0 %>
-    <p>FREE</p>
-  <% else %>
-    <p><%= number_to_currency plant.price_cents / 100 %></p>
-  <% end %>
-<% end %>
