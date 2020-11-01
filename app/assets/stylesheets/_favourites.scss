@@ -1,0 +1,27 @@
+.favourites__title {
+  margin-bottom: 40px;
+}
+
+.favourites-container {
+  width: 950px;
+}
+
+.favourite-card {
+  background: #FFFFFF;
+  border: 1px solid #EEEEEE;
+  display: flex;
+}
+
+.favourite-card__middle {
+  padding: 18px 0 18px 18px;
+  flex-grow: 1;
+}
+
+.favourite-card__end {
+  padding: 18px 18px 18px 0;
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
