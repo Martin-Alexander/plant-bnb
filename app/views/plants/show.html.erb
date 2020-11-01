@@ -82,7 +82,7 @@
     <% end %>
 
     <div class="plants-show__plant-owner">
-      <%= cl_image_tag @plant.user.profile_picture.key, width: 80, height: 80, crop: :fill, class: "plants-show__plant-owner-picture" %>
+      <div class="plants-show__plant-owner-picture" style="background-image: url('<%= cl_image_path @plant.user.profile_picture.key %>')"></div>
       <div>
         <p class="font-text font-colour-grey font-weight-regular font-size-18"><%= @plant.user.name %></p>
         <div class="plant-show__plant-owner-rating">
@@ -108,7 +108,7 @@
       <% @users_other_plants.each do |plant| %>
         <div class="users-other-plant-card">
           <%= link_to plant_path(plant) do %>
-            <%= cl_image_tag plant.cover_photo.key, width: 400, height: 200, crop: :fill %>
+            <div class="users-other-plant-card__picture" style="background-image: url('<%= cl_image_path plant.cover_photo.key %>');"></div>
           <% end %>
 
           <div class="users-other-plant-card__body">

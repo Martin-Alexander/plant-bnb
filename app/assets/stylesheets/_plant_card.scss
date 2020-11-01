@@ -13,12 +13,20 @@
   margin-bottom: 24px;
 }
 
+.plant-card__cover-photo {
+  background-size: cover;
+  height: 244px;
+}
+
 .plant-card__avatar {
   position: absolute;
   right: 15px;
   top: 210px;
   border-radius: 50%;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  background-size: cover;
+  height: 60px;
+  width: 60px;
 }
 
 .plant-card__body {

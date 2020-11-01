@@ -54,7 +54,7 @@
           </div>
           <div class="navbar-account" data-controller="navbar-account">
             <div class="navbar-account__picture-and-carrot" data-action="click->navbar-account#toggleDropdown">
-              <%= cl_image_tag current_user.profile_picture.key, width: 42, height: 42, crop: :fill, class: "navbar-profile-picture" %>
+              <div class="navbar-profile-picture" style="background-image: url('<%= cl_image_path current_user.profile_picture.key %>');"></div>
               <%= image_tag "carrot_down.svg", class: "navbar-profile-dropdown-carrot" %>
             </div>
             <div class="navbar-account__dropdown" data-target="navbar-account.dropdown" hidden>

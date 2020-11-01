@@ -1,24 +1,24 @@
-.favourites__title {
+.my-plants__title {
   margin-bottom: 40px;
 }
 
-.favourites-container {
-  width: 950px;
-}
-
-.favourite-card {
+.my-plant-card {
   background: #FFFFFF;
   border: 1px solid #EEEEEE;
   display: flex;
   margin-bottom: 10px;
 }
 
-.favourite-card__middle {
+.my-plant-card__title {
+  margin-bottom: 6px;
+}
+
+.my-plant-card__middle {
   padding: 18px 0 18px 18px;
   flex-grow: 1;
 }
 
-.favourite-card__end {
+.my-plant-card__end {
   padding: 18px 18px 18px 0;
   width: 230px;
   display: flex;
@@ -27,8 +27,12 @@
   align-items: flex-end;
 }
 
-.favourite-card__picture {
-  width: 200px;
-  height: 113px;
+.my-plant-card__delete {
+  margin-left: 20px;
+}
+
+.my-plant-card__picture {
   background-size: cover;
+  width: 300px;
+  height: 200px;
 }
