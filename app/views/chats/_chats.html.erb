@@ -1,19 +1,15 @@
-<h2>New</h2>
+<% if @new_chats.any? %>
+  <h2 class="chats-index__subheader font-text font-colour-grey font-size-20 font-weight-regular">New</h2>
 
-<% @new_chats.each do |chat| %>
-  <%= link_to chat_path(chat) do %>
-    <%= cl_image_tag chat.other_user.profile_picture.key, width: 100, height: 100, crop: :fill %>
-    <p><%= chat.other_user.name %> (<%= chat.number_of_unread_messages %>)</p>
-    <p><%= chat.messages.last.content %></p>
-  <% end %>
+  <div class="unread-chats">
+    <% @new_chats.each do |chat| %>
+      <%= render "chats/chat", chat: chat %>
+    <% end %>
+  </div>
+
+  <h2 class="chats-index__subheader font-text font-colour-grey font-size-20 font-weight-regular">Read</h2>
 <% end %>
 
-<h2>Read</h2>
-
 <% @old_chats.each do |chat| %>
-  <%= link_to chat_path(chat) do %>
-    <%= cl_image_tag chat.other_user.profile_picture.key, width: 100, height: 100, crop: :fill %>
-    <p><%= chat.other_user.name %></p>
-    <p><%= chat.messages.last.content %></p>
-  <% end %>
+  <%= render "chats/chat", chat: chat %>
 <% end %>

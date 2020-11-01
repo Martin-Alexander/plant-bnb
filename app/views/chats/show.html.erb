@@ -1,22 +1,42 @@
-<h1><%= @chat.other_user.name %></h1>
-
-<% @messages_and_plant_interest.each do |record| %>
-  <% if record.class == Message %>
-    <% message = record %>
-    <div><%= cl_image_tag message.sender.profile_picture.key, width: 70, height: 70, crop: :fill %></div>
-    <p><%= message.content %></p>
-    <p><%= message.created_at.strftime("%l:%M %p") %></p>
-  <% elsif record.class == PlantInterest %>
-    <% plant_interest = record %>
-    <div><%= cl_image_tag plant_interest.plant.cover_photo.key, width: 140, height: 100, crop: :fill %></div>
-    <% if plant_interest.user == current_user %>
-      <p>You are interested in <%= plant_interest.plant.user.name %>'s' plant "<%= plant_interest.plant.title %>"</p>
-    <% else %>
-      <p><%= plant_interest.user.name %> is interested in your plant "<%= plant_interest.plant.title %>"</p>
-    <% end %>
-  <% end %>
+<%= link_to chats_path do %>
+  <h1 class="chat-show__header font-text font-weight-medium font-size-30 font-colour-charcoal">
+    <%= image_tag "carrot-left-black.svg" %>
+    <%= @chat.other_user.name %>
+  </h1>
 <% end %>
 
+<div class="chat-container">
+  <% @messages_and_plant_interest.each do |record| %>
+    <% if record.class == Message %>
+      <% if record.sender == current_user %>
+        <%= render "chats/my_message", message: record %>
+      <% else %>
+        <%= render "chats/other_users_message", message: record %>
+      <% end %>
+    <% elsif record.class == PlantInterest %>
+      <% if record.user == current_user %>
+        <%= render "chats/my_plant_interest", plant_interest: record %>
+      <% else %>
+        <%= render "chats/other_users_plant_interest", plant_interest: record %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
 <%= simple_form_for([@chat, Message.new]) do |f| %>
-  <%= f.input :content, as: :string, autofocus: true %>
+
+  <div class="input string required message-content">
+    <div class="message-submit-button">
+      <%= image_tag "paper_airplane.svg" %>
+    </div>
+    <input
+      placeholder="Message <%= @chat.other_user.name %>..."
+      class="string required new-message-content"
+      autocomplete="off"
+      autofocus="autofocus"
+      type="text"
+      name="message[content]"
+      id="message-content"
+    >
+  </div>
 <% end %>
