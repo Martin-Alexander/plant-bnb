@@ -1,16 +1,19 @@
-<h1>Post your plant</h1>
-<p>Once your post is approved by PlantBnb moderators it will be publically visible </p>
-
-<%= simple_form_for(@plant) do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description %>
-  <%= f.input :price %>
-  <%= f.input :cover_photo %>
-  <%= f.input :pictures, input_html: { multiple: true } %>
-  <%= f.association :categories %>
-
-  <div>
-    <%= f.submit "Submit for Approval"%>
+<div class="plants-new">
+  <div class="plants-new__header">
+    <h1 class="plants-new__title font-title font-size-36 font-colour-charcoal">Post your plant</h1>
+    <p class="font-text font-size-18 font-colour-light-grey">Once your post is approved by PlantBnb moderators it will be publically visible </p>
   </div>
-<% end %>
 
+  <%= simple_form_for(@plant) do |f| %>
+    <%= f.input :title, input_html: { autocomplete: "off", placeholder: "" } %>
+    <%= f.input :description, hint: "Maximum of 30 characters" %>
+    <%= f.input :price, hint: "Leave blank if your plant is free", input_html: { autocomplete: "off", value: nil } %>
+    <%= f.input :cover_photo, required: true %>
+    <%= f.input :pictures, hint: "Maximum of 3 pictures", input_html: { multiple: true } %>
+    <%= f.association :categories, input_html: { class: "select2" } %>
+
+    <div>
+      <%= f.submit "Submit for Approval"%>
+    </div>
+  <% end %>
+</div>

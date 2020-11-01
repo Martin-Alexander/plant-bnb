@@ -84,7 +84,7 @@
     <div class="plants-show__plant-owner">
       <%= cl_image_tag @plant.user.profile_picture.key, width: 80, height: 80, crop: :fill, class: "plants-show__plant-owner-picture" %>
       <div>
-        <p class="font-text font-colour-grey font-weight-regular font-size-24"><%= @plant.user.name %></p>
+        <p class="font-text font-colour-grey font-weight-regular font-size-18"><%= @plant.user.name %></p>
         <div class="plant-show__plant-owner-rating">
           <p>
             <% @plant.user.average_rating.floor.times do %>
@@ -98,7 +98,7 @@
           <p class="font-text font-colour-grey font-weight-regular font-size-20"><%= @plant.user.average_rating %></p>
           <p class="font-text font-colour-light-grey font-weight-regular font-size-20">(<%= @plant.user.number_of_ratings %> reviews)</p>
         </div>
-        <p class="font-text font-colour-black font-weight-regular font-size-20">View all listings</p>
+        <p class="font-text font-colour-black font-weight-medium font-size-18">View all listings</p>
       </div>
     </div>
 

@@ -1,10 +1,14 @@
+@import "select2/dist/css/select2.min.css";
+
 // Files that contain variables used by other files
 @import "layout";
 @import "fonts";
 
 @import "navbar";
+@import "forms";
 @import "general";
 @import "buttons";
 @import "plant_card";
 @import "plants_show";
 @import "plants_index";
+@import "plants_new";

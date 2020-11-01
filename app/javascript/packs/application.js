@@ -16,4 +16,11 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+import jQuery from "jquery";
+window.$ = jQuery;
+
 import "controllers"
+import { setupSelect2, tearDownSelect2 } from "../components/select2";
+
+document.addEventListener("turbolinks:load", () => setupSelect2());
+document.addEventListener("turbolinks:before-cache", () => tearDownSelect2());
