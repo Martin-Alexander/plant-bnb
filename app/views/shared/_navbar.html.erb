@@ -13,22 +13,22 @@
       <div class="navbar__top-right">
         <% if user_signed_in? %>
           <% if controller_name == "favourites" && action_name == "index" %>
-            <%= link_to image_tag("heart--black.svg"), favourites_path, class: "navbar__icon" %>
+            <%= link_to image_tag("heart--black.svg"), favourites_path, title: "Favourites", class: "navbar__icon" %>
           <% else %>
-            <%= link_to image_tag("heart.svg"), favourites_path, class: "navbar__icon" %>
+            <%= link_to image_tag("heart.svg"), favourites_path, title: "Favourites", class: "navbar__icon" %>
           <% end %>
 
           <% if controller_name == "chats" && action_name == "index" %>
-            <%= link_to image_tag("chat_bubble--black.svg"), chats_path, class: "navbar__icon" %>
+            <%= link_to image_tag("chat_bubble--black.svg"), chats_path, title: "Messages", class: "navbar__icon" %>
           <% else %>
-            <%= link_to image_tag("chat_bubble.svg"), chats_path, class: "navbar__icon" %>
+            <%= link_to image_tag("chat_bubble.svg"), chats_path, title: "Messages", class: "navbar__icon" %>
           <% end %>
 
           <div class="navbar__icon notifications-container" data-controller="notifications">
             <% if current_user.notifications.where(read: false).count > 0 %>
               <div class="notification__badge"></div>
             <% end %>
-            <%= image_tag "bell.svg", class: "notification-bell", data: { action: "click->notifications#toggleDropdown"} %>
+            <%= image_tag "bell.svg", class: "notification-bell", title: "Notifications", data: { action: "click->notifications#toggleDropdown"} %>
             <div class="notifications-dropdown" hidden data-target="notifications.dropdown">
               <h2 class="font-title font-colour-black font-size-24 font-weight-medium">Notifications</h2>
               <%# link_to "see all notifications", "#", class: "notifications__see-all font-text font-colour-light-grey font-size-18 font-weight-light" %>
