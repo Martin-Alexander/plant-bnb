@@ -13,7 +13,7 @@
       </div>
       <div class="favourite-card__end">
         <p class="font-text font-size-14 font-colour-light-grey">Favourited on <%= favourite.created_at.strftime("%b %e, %Y") %></p>
-        <%= link_to "Unfavourite", favourite_path(favourite), method: :delete, class: "font-text font-size-14 font-weight-medium font-colour-black" %>
+        <%= link_to "Unfavourite", favourite_path(favourite), remote: true, method: :delete, class: "font-text font-size-14 font-weight-medium font-colour-black" %>
       </div>
     </div>
   <% end %>

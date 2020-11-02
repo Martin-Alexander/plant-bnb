@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :favourites, only: [:index]
+  resources :favourites, only: [:index, :destroy]
   resources :my_plants, only: [:index]
   resources :categories, only: [:show]
 
