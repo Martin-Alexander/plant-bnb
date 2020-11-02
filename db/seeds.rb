@@ -39,9 +39,9 @@ martin = User.new( name: "Martin", email: "martin@email.com", password: "123456"
 martin.profile_picture.attach(io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1603708766/plant-bnb/martin.jpg"), filename: "martin", content_type: "image/jpg")
 martin.save!
 
-sangwoo = User.new( name: "Sangwoo", email: "sangwoo@email.com", password: "123456")
-sangwoo.profile_picture.attach(io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1603708766/plant-bnb/sangwoo.jpg"), filename: "sangwoo", content_type: "image/jpg")
-sangwoo.save!
+aline = User.new( name: "Aline", email: "aline@email.com", password: "123456")
+aline.profile_picture.attach(io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1604297653/plant-bnb/aline.jpg"), filename: "aline", content_type: "image/jpg")
+aline.save!
 
 martins_plant_1 = create_plant_from_existing_cl_file(
   "v1603708107/plant-bnb/plant-1",
@@ -80,45 +80,45 @@ martins_plant_4 = create_plant_from_existing_cl_file(
   categories: [trees_category, shrubs_category, office_plants_category]
 )
 
-sangwoos_plant_1 = create_plant_from_existing_cl_file(
+alines_plant_1 = create_plant_from_existing_cl_file(
   "v1603708107/plant-bnb/plant-5",
-  user: sangwoo,
+  user: aline,
   price_cents: 900,
   title: "Artificial Fiddle Leaf Fig Plant",
   description: "Indoor evergreen plant, in different sizes. Easy to care.",
   categories: [trees_category, office_plants_category]
 )
 
-sangwoos_plant_2 = create_plant_from_existing_cl_file(
+alines_plant_2 = create_plant_from_existing_cl_file(
   "v1603708107/plant-bnb/plant-6",
-  user: sangwoo,
+  user: aline,
   price_cents: 900,
   title: "Plante araignée frisée/ curly spider plant",
   description: "Indoor evergreen plant, in different sizes. Easy to care.",
   categories: [trees_category, artificial_category]
 )
 
-sangwoos_plant_3 = create_plant_from_existing_cl_file(
+alines_plant_3 = create_plant_from_existing_cl_file(
   "v1603708107/plant-bnb/plant-7",
-  user: sangwoo,
+  user: aline,
   price_cents: 900,
   title: "Bulbes de Canna feuilles rouge",
   description: "Indoor evergreen plant, in different sizes. Easy to care.",
   categories: [artificial_category, office_plants_category]
 )
 
-sangwoos_plant_4 = create_plant_from_existing_cl_file(
+alines_plant_4 = create_plant_from_existing_cl_file(
   "v1603708107/plant-bnb/plant-8",
-  user: sangwoo,
+  user: aline,
   price_cents: 0,
   title: "Mother-in-law-tongue/Snake Plant/Sansevieria t",
   description: "Indoor evergreen plant, in different sizes. Easy to care.",
   categories: [trees_category]
 )
 
-sangwoos_plant_5 = create_plant_from_existing_cl_file(
+alines_plant_5 = create_plant_from_existing_cl_file(
   "v1603708108/plant-bnb/plant-9",
-  user: sangwoo,
+  user: aline,
   price_cents: 1100,
   title: "PLANTES DE FIGUES EN POT",
   description: "Indoor evergreen plant, in different sizes. Easy to care.",
@@ -126,19 +126,19 @@ sangwoos_plant_5 = create_plant_from_existing_cl_file(
   categories: [trees_category, trees_category]
 )
 
-Favourite.create!(user: martin, plant: sangwoos_plant_1)
-Favourite.create!(user: sangwoo, plant: martins_plant_1)
+Favourite.create!(user: martin, plant: alines_plant_1)
+Favourite.create!(user: aline, plant: martins_plant_1)
 
-Rating.create!(user: martin, plant: sangwoos_plant_2, stars: 5)
+Rating.create!(user: martin, plant: alines_plant_2, stars: 5)
 
-Rating.create!(user: sangwoo, plant: martins_plant_2, stars: 5)
+Rating.create!(user: aline, plant: martins_plant_2, stars: 5)
 
-PlantInterest.create!(user: sangwoo, plant: martins_plant_2)
-message = Message.create!(sender: sangwoo, receiver: martin, content: "Hey Martin! Can I come pick up this plant tomorrow morning?")
-sangwoos_chat_with_martin = Chat.create!(user: sangwoo, other_user: martin, number_of_unread_messages: 0)
-martins_chat_with_sangwoo = Chat.create!(user: martin, other_user: sangwoo, number_of_unread_messages: 1)
+PlantInterest.create!(user: aline, plant: martins_plant_2)
+message = Message.create!(sender: aline, receiver: martin, content: "Hey Martin! Can I come pick up this plant tomorrow morning?")
+alines_chat_with_martin = Chat.create!(user: aline, other_user: martin, number_of_unread_messages: 0)
+martins_chat_with_aline = Chat.create!(user: martin, other_user: aline, number_of_unread_messages: 1)
 Notification.create!(
-  chat: martins_chat_with_sangwoo,
-  title: "<strong>#{sangwoo.name}</strong> is interested in your plant \"<strong>#{martins_plant_2.title}</strong>\"",
+  chat: martins_chat_with_aline,
+  title: "<strong>#{aline.name}</strong> is interested in your plant \"<strong>#{martins_plant_2.title}</strong>\"",
   message_preview: message.content
 )
