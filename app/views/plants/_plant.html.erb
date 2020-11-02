@@ -5,18 +5,23 @@
 
   <div class="plant-card__avatar" style="background-image: url('<%= cl_image_path plant.user.profile_picture.key %>');"></div>
 
-  <% favourite = Favourite.find_or_initialize_by(user: current_user, plant: plant) %>
+  <% favourite = plant.favourites.to_a.find { |fav| fav.user == current_user} %>
 
-  <% if favourite.persisted? %>
-    <% if policy(favourite).destroy? %>
-      <%= link_to favourite_path(favourite), method: :delete do %>
-        <%= image_tag "heart_pink--filled.svg", class: "plant-card__heart", width: 24, height: 24 %>
+  <% if user_signed_in? %>
+    <% if favourite %>
+      <% if policy(favourite).destroy? %>
+        <%= image_tag "heart_pink--filled.svg", class: "plant-card__heart", width: 24, height: 24, data: {
+          reflex: "click->FavouritesReflex#destroy",
+          favourite_id: favourite.id
+        } %>
       <% end %>
-    <% end %>
-  <% else %>
-    <% if policy(favourite).create? && plant.user != current_user %>
-      <%= link_to plant_favourites_path(plant), method: :post do %>
-        <%= image_tag "heart_pink.svg", class: "plant-card__heart", width: 24, height: 24 %>
+    <% else %>
+      <% favourite = plant.favourites.new(user: current_user) %>
+      <% if policy(favourite).create? && plant.user != current_user %>
+        <%= image_tag "heart_pink.svg", class: "plant-card__heart", width: 24, height: 24, data: {
+          reflex: "click->FavouritesReflex#create",
+          plant_id: plant.id
+        } %>
       <% end %>
     <% end %>
   <% end %>

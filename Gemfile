@@ -67,3 +67,5 @@ gem "pundit", "~> 2.1"
 gem "simple_form", "~> 5.0"
 
 gem "pg_search", "~> 2.3"
+
+gem "stimulus_reflex", "~> 3.3"

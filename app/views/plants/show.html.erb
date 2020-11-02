@@ -1,5 +1,4 @@
 <div class="plants-show__container">
-
   <div class="plants-show__left-column">
     <div class="plants-show__top-left">
       <div>
@@ -12,21 +11,25 @@
         <% end %>
       </div>
 
-      <% favourite = Favourite.find_or_initialize_by(user: current_user, plant: @plant) %>
+      <div>
+        <% favourite = Favourite.find_or_initialize_by(user: current_user, plant: @plant) %>
 
-      <% if favourite.persisted? %>
-        <% if policy(favourite).destroy? %>
-          <%= link_to favourite_path(favourite), method: :delete do %>
-            <%= image_tag "heart_pink--filled.svg", width: 26, height: 26 %>
+        <% if favourite.persisted? %>
+          <% if policy(favourite).destroy? %>
+            <%= image_tag "heart_pink--filled.svg", width: 26, height: 26, data: {
+              reflex: "click->FavouritesReflex#destroy",
+              favourite_id: favourite.id
+            } %>
+          <% end %>
+        <% else %>
+          <% if policy(favourite).create? && @plant.user != current_user %>
+            <%= image_tag "heart_pink.svg", width: 26, height: 26, data: {
+              reflex: "click->FavouritesReflex#create",
+              plant_id: @plant.id
+            } %>
           <% end %>
         <% end %>
-      <% else %>
-        <% if policy(favourite).create? && @plant.user != current_user %>
-          <%= link_to plant_favourites_path(@plant), method: :post do %>
-            <%= image_tag "heart_pink.svg", width: 26, height: 26 %>
-          <% end %>
-        <% end %>
-      <% end %>
+      </div>
     </div>
 
     <div class="plant-picture-gallery" data-controller="plant-pictures-gallery">

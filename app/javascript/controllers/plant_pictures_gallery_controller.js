@@ -1,6 +1,6 @@
-import { Controller } from "stimulus";
+import ApplicationController from "./application_controller";
 
-export default class PlantPicturesGalleryController extends Controller  {
+export default class PlantPicturesGalleryController extends ApplicationController  {
   static targets = ["mainPicture", "thumbnail"];
 
   selectPicture(event) {

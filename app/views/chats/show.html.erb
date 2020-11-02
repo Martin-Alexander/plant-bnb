@@ -5,38 +5,31 @@
   </h1>
 <% end %>
 
-<div class="chat-container">
-  <% @messages_and_plant_interest.each do |record| %>
-    <% if record.class == Message %>
-      <% if record.sender == current_user %>
-        <%= render "chats/my_message", message: record %>
-      <% else %>
-        <%= render "chats/other_users_message", message: record %>
-      <% end %>
-    <% elsif record.class == PlantInterest %>
-      <% if record.user == current_user %>
-        <%= render "chats/my_plant_interest", plant_interest: record %>
-      <% else %>
-        <%= render "chats/other_users_plant_interest", plant_interest: record %>
+<div data-controller="chat" data-chat-id="<%= @chat.id %>">
+  <div class="chat-container" data-target="chat.messageList">
+    <% @messages_and_plant_interest.each do |record| %>
+      <% if record.class == Message %>
+        <% if record.sender == current_user %>
+          <%= render "chats/my_message", message: record %>
+        <% else %>
+          <%= render "chats/other_users_message", message: record %>
+        <% end %>
+      <% elsif record.class == PlantInterest %>
+        <% if record.user == current_user %>
+          <%= render "chats/my_plant_interest", plant_interest: record %>
+        <% else %>
+          <%= render "chats/other_users_plant_interest", plant_interest: record %>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
-</div>
-
-<%= simple_form_for([@chat, Message.new]) do |f| %>
-
-  <div class="input string required message-content">
-    <div class="message-submit-button">
-      <%= image_tag "paper_airplane.svg", width: 20 %>
-    </div>
-    <input
-      placeholder="Message <%= @chat.other_user.name %>..."
-      class="string required new-message-content"
-      autocomplete="off"
-      autofocus="autofocus"
-      type="text"
-      name="message[content]"
-      id="message-content"
-    >
   </div>
-<% end %>
+
+  <div class="input string message-content">
+    <%= simple_form_for [@chat, Message.new], html: { data: { action: "submit->chat#clearInput", target: "chat.form" }} do |f| %>
+      <div class="message-submit-button" data-action="click->chat#submitForm">
+        <%= image_tag "paper_airplane.svg", width: 20 %>
+      </div>
+      <%= f.input :content, label: false, as: :string, input_html: { class: "", placeholder: "Message #{@chat.other_user.name}...", autocomplete: "off", autofocus: true, data: { target: "chat.input" }} %>
+    <% end %>
+  </div>
+</div>

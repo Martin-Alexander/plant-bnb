@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
         message_preview: message.content
       )
 
-      redirect_to chat_path(chat)
+      ChatChannel.broadcast_new_message(message)
     end
   end
 end

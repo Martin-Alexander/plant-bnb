@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :plants do
-    resources :favourites, only: [:index, :create]
+    resources :favourites, only: [:index]
     resources :plant_interests, only: [:create]
 
     member do
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :favourites, only: [:index, :destroy]
+  resources :favourites, only: [:index]
   resources :my_plants, only: [:index]
   resources :categories, only: [:show]
 

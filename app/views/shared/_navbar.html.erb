@@ -33,7 +33,7 @@
               <h2 class="font-title font-colour-black font-size-20 font-weight-medium">Notifications</h2>
               <%# link_to "see all notifications", "#", class: "notifications__see-all font-text font-colour-light-grey font-size-18 font-weight-light" %>
               <div class="notifications-list">
-                <% current_user.notifications.order(:read).order(created_at: :asc).each do |notification| %>
+                <% current_user.notifications.order(:read).order(created_at: :desc).each do |notification| %>
                   <div class="notification-list-item">
                     <%= link_to chat_path(notification.chat), class: "notification-list-item__inner" do %>
                       <p class="notification-list-item__title font-text font-colour-black font-weight-regular font-size-14"><%= notification.title.html_safe %></p>

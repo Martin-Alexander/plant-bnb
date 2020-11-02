@@ -4,7 +4,7 @@ class PlantsController < ApplicationController
   def index
     authorize(Plant)
 
-    @plants = policy_scope(Plant).order("user_id = #{current_user&.id || 0}").includes(:user)
+    @plants = policy_scope(Plant).order("user_id = #{current_user&.id || 0}").includes({ user: { profile_picture_attachment: :blob }}, { favourites: :user }).with_attached_cover_photo
 
     if params[:search].present?
       @plants = @plants.search_by_title_and_description(params[:search])

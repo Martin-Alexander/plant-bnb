@@ -1,7 +1,7 @@
-import { Controller } from "stimulus"
+import ApplicationController from "./application_controller";
 import { useClickOutside } from "stimulus-use";
 
-export default class NavbarAccountController extends Controller {
+export default class NavbarAccountController extends ApplicationController {
   static targets = ["dropdown"];
 
   connect() {
