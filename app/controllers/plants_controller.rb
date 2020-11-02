@@ -4,7 +4,7 @@ class PlantsController < ApplicationController
   def index
     authorize(Plant)
 
-    @plants = policy_scope(Plant).includes(:user)
+    @plants = policy_scope(Plant).order("user_id = #{current_user&.id || 0}").includes(:user)
 
     if params[:search].present?
       @plants = @plants.search_by_title_and_description(params[:search])
@@ -56,6 +56,13 @@ class PlantsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    plant = Plant.find(params[:id])
+    authorize plant
+
+    plant.destroy
   end
 
   private

@@ -10,29 +10,29 @@
   <% if favourite.persisted? %>
     <% if policy(favourite).destroy? %>
       <%= link_to favourite_path(favourite), method: :delete do %>
-        <%= image_tag "heart_pink--filled.svg", class: "plant-card__heart" %>
+        <%= image_tag "heart_pink--filled.svg", class: "plant-card__heart", width: 24, height: 24 %>
       <% end %>
     <% end %>
   <% else %>
     <% if policy(favourite).create? && plant.user != current_user %>
       <%= link_to plant_favourites_path(plant), method: :post do %>
-        <%= image_tag "heart_pink.svg", class: "plant-card__heart" %>
+        <%= image_tag "heart_pink.svg", class: "plant-card__heart", width: 24, height: 24 %>
       <% end %>
     <% end %>
   <% end %>
 
   <div class="plant-card__body">
     <%= link_to plant_path(plant), class: "text-decoration-none" do %>
-      <h2 class="plant-card__title font-text font-colour-charcoal font-weight-regular font-size-20"><%= plant.title %></h2>
+      <h2 class="plant-card__title font-text font-colour-charcoal font-weight-regular font-size-18"><%= plant.title %></h2>
     <% end %>
 
     <div class="plant-card__lower">
-      <p class="plant-card__date font-text font-colour-light-grey font-size-14">Montreal | <%= plant.created_at.strftime("%b %e, %Y") %></p>
+      <p class="plant-card__date font-text font-colour-light-grey font-size-12">Montreal | <%= plant.created_at.strftime("%b %e, %Y") %></p>
 
       <% if plant.price_cents == 0 %>
-        <p class="plant-card__price font-text font-colour-charcoal font-weight-medium font-size-24">FREE</p>
+        <p class="plant-card__price font-text font-colour-charcoal font-weight-medium font-size-18">FREE</p>
       <% else %>
-        <p class="plant-card__price font-text font-colour-charcoal font-weight-medium font-size-24"><%= number_to_currency plant.price_cents / 100 %></p>
+        <p class="plant-card__price font-text font-colour-charcoal font-weight-medium font-size-18"><%= number_to_currency plant.price_cents / 100 %></p>
       <% end %>
     </div>
   </div>

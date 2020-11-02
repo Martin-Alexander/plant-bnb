@@ -1,5 +1,5 @@
 <%= link_to chats_path do %>
-  <h1 class="chat-show__header font-text font-weight-medium font-size-30 font-colour-charcoal">
+  <h1 class="chat-show__header font-text font-weight-medium font-size-24 font-colour-charcoal">
     <%= image_tag "carrot-left-black.svg" %>
     <%= @chat.other_user.name %>
   </h1>
@@ -27,7 +27,7 @@
 
   <div class="input string required message-content">
     <div class="message-submit-button">
-      <%= image_tag "paper_airplane.svg" %>
+      <%= image_tag "paper_airplane.svg", width: 20 %>
     </div>
     <input
       placeholder="Message <%= @chat.other_user.name %>..."

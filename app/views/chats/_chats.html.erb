@@ -1,15 +1,17 @@
-<% if @new_chats.any? %>
-  <h2 class="chats-index__subheader font-text font-colour-grey font-size-20 font-weight-regular">New</h2>
+<div class="chats-index__container">
+  <% if @new_chats.any? %>
+    <h2 class="chats-index__subheader font-text font-colour-grey font-size-18 font-weight-regular">New</h2>
 
-  <div class="unread-chats">
-    <% @new_chats.each do |chat| %>
-      <%= render "chats/chat", chat: chat %>
-    <% end %>
-  </div>
+    <div class="unread-chats">
+      <% @new_chats.each do |chat| %>
+        <%= render "chats/chat", chat: chat %>
+      <% end %>
+    </div>
 
-  <h2 class="chats-index__subheader font-text font-colour-grey font-size-20 font-weight-regular">Read</h2>
-<% end %>
+    <h2 class="chats-index__subheader font-text font-colour-grey font-size-18 font-weight-regular">Read</h2>
+  <% end %>
 
-<% @old_chats.each do |chat| %>
-  <%= render "chats/chat", chat: chat %>
-<% end %>
+  <% @old_chats.each do |chat| %>
+    <%= render "chats/chat", chat: chat %>
+  <% end %>
+</div>

@@ -1,4 +1,4 @@
-<h1 class="favourites__title font-text font-weight-medium font-size-30 font-colour-charcoal">Your Favourites</h1>
+<h1 class="favourites__title font-text font-weight-medium font-size-24 font-colour-charcoal">Your Favourites</h1>
 
 <div class="favourites-container">
   <% @favourites.each do |favourite| %>
@@ -8,12 +8,12 @@
       <% end %>
       <div class="favourite-card__middle">
         <%= link_to plant_path(favourite.plant) do %>
-          <p class="font-text font-size-18 font-colour-charcoal"><%= favourite.plant.title %></p>
+          <p class="font-text font-size-16 font-colour-charcoal"><%= favourite.plant.title %></p>
         <% end %>
       </div>
       <div class="favourite-card__end">
-        <p class="font-text font-size-16 font-colour-light-grey">Favourited on <%= favourite.created_at.strftime("%b %e, %Y") %></p>
-        <%= link_to "Unfavourite", favourite_path(favourite), method: :delete, class: "font-text font-size-16 font-weight-medium font-colour-black" %>
+        <p class="font-text font-size-14 font-colour-light-grey">Favourited on <%= favourite.created_at.strftime("%b %e, %Y") %></p>
+        <%= link_to "Unfavourite", favourite_path(favourite), method: :delete, class: "font-text font-size-14 font-weight-medium font-colour-black" %>
       </div>
     </div>
   <% end %>

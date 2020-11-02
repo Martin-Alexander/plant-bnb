@@ -2,7 +2,7 @@ class ChatsController < ApplicationController
   def index
     authorize(Chat)
 
-    @old_chats = policy_scope(Chat).where(number_of_unread_messages: 0)
+  @old_chats = policy_scope(Chat).where(number_of_unread_messages: 0)
     @new_chats = policy_scope(Chat).where("number_of_unread_messages > 0")
   end
 
@@ -15,7 +15,7 @@ class ChatsController < ApplicationController
     @chat.notifications.update_all(read: true)
 
     messages = @chat.messages.order(created_at: :asc).includes(:receiver, :sender)
-    your_plant_interests = policy_scope(PlantInterest).joins(:plant).where(user: current_user).includes(:user, :plant)
+    your_plant_interests = policy_scope(PlantInterest).joins(:plant).where(user: current_user, plants: { user: @chat.other_user }).includes(:user, :plant)
     plant_interests_of_other_user = policy_scope(PlantInterest).joins(:plant).where(plants: { user: current_user }, user: @chat.other_user).includes(:user, :plant)
     plant_interests = your_plant_interests.or(plant_interests_of_other_user)
 

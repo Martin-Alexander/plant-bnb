@@ -3,12 +3,12 @@
   <div class="plants-show__left-column">
     <div class="plants-show__top-left">
       <div>
-        <h1 class="plants-show__title font-title font-weight-medium font-size-24 font-colour-charcoal"><%= @plant.title %></h1>
+        <h1 class="plants-show__title font-title font-weight-medium font-size-20 font-colour-charcoal"><%= @plant.title %></h1>
 
         <% if @plant.price_cents == 0 %>
-          <p class="font-text font-weight-medium font-size-24 font-colour-charcoal">FREE</p>
+          <p class="font-text font-weight-medium font-size-20 font-colour-charcoal">FREE</p>
         <% else %>
-          <p class="font-text font-weight-medium font-size-24 font-colour-charcoal"><%= number_to_currency @plant.price_cents / 100 %></p>
+          <p class="font-text font-weight-medium font-size-20 font-colour-charcoal"><%= number_to_currency @plant.price_cents / 100 %></p>
         <% end %>
       </div>
 
@@ -17,13 +17,13 @@
       <% if favourite.persisted? %>
         <% if policy(favourite).destroy? %>
           <%= link_to favourite_path(favourite), method: :delete do %>
-            <%= image_tag "heart_pink--filled.svg" %>
+            <%= image_tag "heart_pink--filled.svg", width: 26, height: 26 %>
           <% end %>
         <% end %>
       <% else %>
         <% if policy(favourite).create? && @plant.user != current_user %>
           <%= link_to plant_favourites_path(@plant), method: :post do %>
-            <%= image_tag "heart_pink.svg" %>
+            <%= image_tag "heart_pink.svg", width: 26, height: 26 %>
           <% end %>
         <% end %>
       <% end %>
@@ -59,21 +59,21 @@
       <% end %>
     </div>
 
-    <h3 class="plant-show__description-header font-text font-weight-regular font-colour-grey font-size-24">Description</h3>
-    <p class="font-text font-weight-light font-colour-grey font-size-20"><%= @plant.description %></p>
+    <h3 class="plant-show__description-header font-text font-weight-regular font-colour-grey font-size-18">Description</h3>
+    <p class="font-text font-weight-light font-colour-grey font-size-16"><%= @plant.description %></p>
   </div>
 
   <div class="plants-show__right-column">
-    <p class="plants-show__time-posted-ago font-text font-colour-grey font-size-18">Posted <%= time_ago_in_words(@plant.created_at) %> ago in Montreal</p>
-    <p class="font-text font-colour-black font-weight-medium font-size-18">View on map</p>
+    <p class="plants-show__time-posted-ago font-text font-colour-grey font-size-14">Posted <%= time_ago_in_words(@plant.created_at) %> ago in Montreal</p>
+    <p class="font-text font-colour-black font-weight-medium font-size-14">View on map</p>
 
     <% if @plant_interest.persisted? %>
       <div class="plants-show__contact-form">
-        <h2 class="plants-show__form-title font-text font-colour-charcoal font-size-20 font-weight-medium">You've already contacted <%= @plant.user.name %> regarding this plant</h2>
+        <h2 class="plants-show__form-title font-text font-colour-charcoal font-size-14 font-weight-medium">You've already contacted <%= @plant.user.name %> regarding this plant</h2>
       </div>
     <% elsif policy(@plant_interest).create? && current_user != @plant.user %>
       <div class="plants-show__contact-form">
-        <h2 class="plants-show__form-title font-text font-colour-charcoal font-size-20 font-weight-medium">Contact <%= @plant.user.name %> regarding this plant</h2>
+        <h2 class="plants-show__form-title font-text font-colour-charcoal font-size-14 font-weight-medium">Contact <%= @plant.user.name %> regarding this plant</h2>
         <%= form_with url: plant_plant_interests_path(@plant) do %>
           <%= text_area_tag "message[content]", "", placeholder: "Write a message...", class: "plants-show__message-content" %>
           <%= submit_tag "Send Message", class: "button-green button-fluid" %>
@@ -84,26 +84,26 @@
     <div class="plants-show__plant-owner">
       <div class="plants-show__plant-owner-picture" style="background-image: url('<%= cl_image_path @plant.user.profile_picture.key %>')"></div>
       <div>
-        <p class="font-text font-colour-grey font-weight-regular font-size-18"><%= @plant.user.name %></p>
+        <p class="font-text font-colour-grey font-weight-regular font-size-14"><%= @plant.user.name %></p>
         <div class="plant-show__plant-owner-rating">
           <p>
             <% @plant.user.average_rating.floor.times do %>
-              <%= image_tag "star--filled.svg", style: "margin-right: -5px;" %>
+              <%= image_tag "star--filled.svg", style: "margin-left: -5px;", width: 20, height: 20 %>
             <% end %>
 
             <% (5 - @plant.user.average_rating.floor).times do %>
-              <%= image_tag "star.svg", style: "margin-right: -5px;" %>
+              <%= image_tag "star.svg", style: "margin-left: -5px;", width: 20, height: 20 %>
             <% end %>
           </p>
-          <p class="font-text font-colour-grey font-weight-regular font-size-20"><%= @plant.user.average_rating %></p>
-          <p class="font-text font-colour-light-grey font-weight-regular font-size-20">(<%= @plant.user.number_of_ratings %> reviews)</p>
+          <p class="font-text font-colour-grey font-weight-regular font-size-14"><%= @plant.user.average_rating %></p>
+          <p class="font-text font-colour-light-grey font-weight-regular font-size-14">(<%= @plant.user.number_of_ratings %> reviews)</p>
         </div>
-        <p class="font-text font-colour-black font-weight-medium font-size-18">View all listings</p>
+        <p class="font-text font-colour-black font-weight-medium font-size-14">View all listings</p>
       </div>
     </div>
 
     <div class="plants-show__other-plants">
-      <h3 class="plants-show__other-plants-title font-text font-size-24 font-weight-regular font-colour-grey"><%= @plant.user.name %>'s other plants</h3>
+      <h3 class="plants-show__other-plants-title font-text font-size-18 font-weight-regular font-colour-grey"><%= @plant.user.name %>'s other plants</h3>
 
       <% @users_other_plants.each do |plant| %>
         <div class="users-other-plant-card">
@@ -112,15 +112,15 @@
           <% end %>
 
           <div class="users-other-plant-card__body">
-            <%= link_to plant.title, plant_path(plant), class: "text-decoration-none font-text font-weight-regular font-size-20 font-colour-charcoal" %>
+            <%= link_to plant.title, plant_path(plant), class: "text-decoration-none font-text font-weight-regular font-size-18 font-colour-charcoal" %>
 
             <div class="users-other-plant-card__bottom">
-              <p class="font-text font-weight-regular font-size-14 font-colour-light-grey">Montreal | <%= plant.created_at.strftime("%b %e, %Y") %></p>
+              <p class="font-text font-weight-regular font-size-12 font-colour-light-grey">Montreal | <%= plant.created_at.strftime("%b %e, %Y") %></p>
 
               <% if plant.price_cents == 0 %>
-                <p class="font-text font-weight-medium font-size-24 font-colour-charcoal">FREE</p>
+                <p class="font-text font-weight-medium font-size-28 font-colour-charcoal">FREE</p>
               <% else %>
-                <p class="font-text font-weight-medium font-size-24 font-colour-charcoal"><%= number_to_currency plant.price_cents / 100 %></p>
+                <p class="font-text font-weight-medium font-size-28 font-colour-charcoal"><%= number_to_currency plant.price_cents / 100 %></p>
               <% end %>
             </div>
           </div>

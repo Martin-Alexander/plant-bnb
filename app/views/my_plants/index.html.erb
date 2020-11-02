@@ -1,4 +1,4 @@
-<h1 class="my-plants__title font-text font-weight-medium font-size-30 font-colour-charcoal">Your Plants</h1>
+<h1 class="my-plants__title font-text font-weight-medium font-size-24 font-colour-charcoal">Your Plants</h1>
 
 <% @plants.each do |plant| %>
   <div class="my-plant-card">
@@ -6,14 +6,14 @@
       <div class="my-plant-card__picture" style="background-image: url('<%= cl_image_path plant.cover_photo.key %>');"></div>
     <% end %>
     <div class="my-plant-card__middle">
-      <p class="my-plant-card__title font-text font-size-20 font-colour-charcoal"><%= plant.title %></p>
+      <p class="my-plant-card__title font-text font-size-16 font-colour-charcoal"><%= plant.title %></p>
       <%= link_to "#{pluralize(plant.plant_interests.count, "person")} interested", chats_plant_path(plant), class: "font-text font-size-16 font-colour-light-grey" %>
     </div>
     <div class="my-plant-card__end">
-      <p class="font-text font-size-16 font-colour-light-grey">Added on <%= plant.created_at.strftime("%b %e, %Y") %></p>
+      <p class="font-text font-size-14 font-colour-light-grey">Added on <%= plant.created_at.strftime("%b %e, %Y") %></p>
       <div>
-        <%= link_to "Edit details", edit_plant_path(plant), class: "font-text font-size-16 font-weight-medium font-colour-black" %>
-        <%= link_to "Delete", plant_path(plant), method: :delete, class: "my-plant-card__delete font-text font-size-16 font-weight-medium font-colour-red" %>
+        <%= link_to "Edit details", edit_plant_path(plant), class: "font-text font-size-14 font-weight-medium font-colour-black" %>
+        <%= link_to "Delete", plant_path(plant), method: :delete, class: "my-plant-card__delete font-text font-size-14 font-weight-medium font-colour-red" %>
       </div>
     </div>
   </div>

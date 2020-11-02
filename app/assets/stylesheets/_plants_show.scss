@@ -4,43 +4,43 @@
 }
 
 .plants-show__left-column {
-  width: 800px;
+  width: 685px;
 }
 
 .plants-show__right-column {
-  width: 400px;
+  width: 285px;
   margin-top: 25px;
 }
 
 .plants-show__top-left {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .plants-show__title {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .plant-picture-gallery {
-  margin-bottom: 55px;
+  margin-bottom: 30px;
 }
 
 .plant-picture-gallery__thumbnails {
   display: flex;
   justify-content: space-between;
-  margin-top: 12px;
+  margin-top: 6px;
 }
 
 .plant-picture-gallery__main-picture {
-  height: 510px;
+  height: 380px;
   background-size: cover;
   background-position: center;
 }
 
 .plant-picture-gallery__thumbnail {
-  height: 188px;
-  width: 188px;
+  height: 120px;
+  width: 166px;
   background-size: cover;
   background-position: center;
   opacity: 0.5;
@@ -62,7 +62,7 @@
 }
 
 .plant-show__description-header {
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
 
 .plants-show__time-posted-ago {
@@ -70,9 +70,9 @@
 }
 
 .plants-show__contact-form {
-  margin-top: 30px;
+  margin-top: 14px;
   background-color: #F6F6F6;
-  padding: 24px;
+  padding: 14px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02);
   border: solid 1px #EEEEEE;
 }
@@ -83,53 +83,54 @@
 
 .plants-show__message-content {
   width: 100%;
-  height: 180px;
+  height: 130px;
   box-sizing: border-box;
   border: solid 1px #EEEEEE;
   font-family: Roboto;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 300;
   resize: none;
-  padding: 22px;
-  margin-top: 34px;
-  margin-bottom: 21px;
+  padding: 12px;
+  margin-top: 16px;
+  margin-bottom: 12px;
 }
 
 .plants-show__plant-owner {
   display: flex;
-  margin-top: 66px;
-  margin-bottom: 72px;
+  margin-top: 35px;
+  margin-bottom: 40px;
 }
 
 .plants-show__plant-owner-picture {
   border-radius: 50%;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-  margin-right: 23px;
-  width: 80px;
-  height: 80px;
+  margin-right: 10px;
+  width: 55px;
+  height: 55px;
   background-size: cover;
 }
 
 .plant-show__plant-owner-rating {
   display: flex;
   margin-top: 2px;
+  margin-bottom: 8px;
 
   &>p {
-    margin-right: 16px;
+    margin-right: 12px;
 
-    &:last-child {
-      margin-right: 0px;
+    &:first-child {
+      margin-left: 5px;
     }
   }
 }
 
 .plants-show__other-plants {
   border-top: solid 1px #C4C4C4;
-  padding-top: 36px;
+  padding-top: 25px;
 }
 
 .plants-show__other-plants-title {
-  margin-bottom: 40px;
+  margin-bottom: 25px;
 }
 
 .users-other-plant-card {
@@ -140,7 +141,7 @@
 }
 
 .users-other-plant-card__body {
-  padding: 15px;
+  padding: 12px;
 }
 
 .users-other-plant-card__bottom {
@@ -151,6 +152,6 @@
 }
 
 .users-other-plant-card__picture {
-  height: 200px;
+  height: 140px;
   background-size: cover;
 }

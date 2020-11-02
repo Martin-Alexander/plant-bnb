@@ -1,15 +1,15 @@
 .navbar {
   background: #FFFFFF;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.02);
-  margin-bottom: 64px;
+  margin-bottom: 32px;
 }
 
 .navbar__sign-in {
-  margin-right: 30px;
+  margin-right: 24px;
 }
 
 .navbar__content-container {
-  width: 1250px;
+  width: 1000px;
 
   margin-left: auto;
   margin-right: auto;
@@ -24,6 +24,8 @@
 
 .navbar__top-left {
   display: flex;
+  flex-grow: 1;
+  margin-right: 100px;
 }
 
 .navbar__top-right {
@@ -32,33 +34,44 @@
 }
 
 .navbar__icon {
-  margin-right: 25px;
+  margin-right: 18px;
+  display: flex;
+
+  img {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 .logo__last-part {
   position: relative;
-  right: 8px;
+  right: 5px;
+}
+
+.search-form {
+  flex-grow: 1;
 }
 
 .search-bar {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 300;
   font-family: Roboto;
-  padding: 7px 15px;
+  padding: 6px 10px;
   border: 1px solid #C2C2C2;
-  width: 590px;
+  width: 100%;
 }
 
 .navbar-profile-picture {
   border-radius: 50%;
-  width: 42px;
-  height: 42px;
-  margin-right: 12px;
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
   background-size: cover;
 }
 
 .navbar-profile-dropdown-carrot {
-  margin-right: 30px;
+  margin-right: 20px;
+  width: 14px;
 }
 
 .navbar-account {
@@ -105,12 +118,12 @@
 }
 
 .navbar__bottom {
-  margin-top: 22px;
-  margin-bottom: 22px;
+  margin-top: 16px;
+  margin-bottom: 16px;
 
   a {
     text-decoration: none;
-    margin-right: 40px;
+    margin-right: 24px;
   }
 }
 
@@ -124,18 +137,18 @@
   right: 0;
   top: 34px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-  padding: 16px 6px 16px 16px;
+  padding: 12px 6px 12px 12px;
   z-index: 1;
 
   h2 {
-    margin-top: 4px;
-    margin-bottom: 18px;
+    margin-top: 2px;
+    margin-bottom: 14px;
   }
 }
 
 .notifications-list {
   margin-top: 8px;
-  max-height: 600px;
+  max-height: 560px;
   overflow-y: auto;
 }
 
@@ -146,8 +159,8 @@
 
 .notification__badge {
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background-color: #00A800;
   z-index: 1;
@@ -162,7 +175,7 @@
 
 .notification-list-item {
   border-top: solid 1px #DADADA;
-  padding: 12px 0px;
+  padding: 8px 0px;
   margin-right: 10px;
 }
 
@@ -170,7 +183,8 @@
   text-decoration: none;
   display: inline-block;
   width: 100%;
-  width: 320px;
+  width: 280px;
+  padding: 0 8px;
 
   &:hover {
     background-color: #f0f8f0;
@@ -203,8 +217,8 @@
 }
 
 .notification-list-item__unread {
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background-color: #00A800;
 }

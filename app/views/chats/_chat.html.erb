@@ -1,14 +1,14 @@
 <%= link_to chat_path(chat) do %>
   <div class="chat-card">
-    <%= cl_image_tag chat.other_user.profile_picture.key, width: 80, height: 80, crop: :fill, class: "chat-card__avatar" %>
+    <div class="chat-card__avatar" style="background-image: url('<%= cl_image_path chat.other_user.profile_picture.key %>');"></div>
     <div class="chat-card__right">
       <% if chat.number_of_unread_messages > 0 %>
-        <p class="chat-card__user-name font-text font-size-18 font-weight-medium font-colour-grey"><%= chat.other_user.name %> (<%= chat.number_of_unread_messages %>)</p>
+        <p class="chat-card__user-name font-text font-size-14 font-weight-medium font-colour-grey"><%= chat.other_user.name %> (<%= chat.number_of_unread_messages %>)</p>
       <% else %>
-        <p class="chat-card__user-name font-text font-size-18 font-weight-medium font-colour-grey"><%= chat.other_user.name %></p>
+        <p class="chat-card__user-name font-text font-size-14 font-weight-medium font-colour-grey"><%= chat.other_user.name %></p>
       <% end %>
-      <p class="chat-card__last-message font-text font-size-18 font-weight-light font-colour-light-grey">"<%= chat.messages.last.content.truncate(250) %>"</p>
-      <p class="font-text font-style-italic font-size-16 font-colour-lighter-grey"><%= time_ago_in_words chat.messages.last.created_at %></p>
+      <p class="chat-card__last-message font-text font-size-14 font-weight-light font-colour-light-grey">"<%= chat.messages.last.content.truncate(250) %>"</p>
+      <p class="font-text font-style-italic font-size-12 font-colour-lighter-grey"><%= time_ago_in_words chat.messages.last.created_at %></p>
     </div>
   </div>
 <% end %>

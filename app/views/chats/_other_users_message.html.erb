@@ -1,13 +1,11 @@
 <div class="other-message">
   <div class="other-message__left">
-    <div>
-      <%= cl_image_tag message.sender.profile_picture.key, width: 60, height: 60, crop: :fill, class: "message__profile-picture" %>
-    </div>
+    <div class="message__profile-picture" style="background-image: url('<%= cl_image_path message.sender.profile_picture.key %>');"></div>
   </div>
   <div class="other-message__right">
     <div class="other-message__bubble">
-      <p class="other-message__content font-text font-weight-light font-size-20"><%= message.content %></p>
+      <p class="other-message__content font-text font-weight-light font-size-16"><%= message.content %></p>
     </div>
-    <p class="font-text font-size-16 font-weight-light font-colour-light-grey"><%= message.created_at.strftime("%l:%M %p") %></p>
+    <p class="font-text font-size-12 font-weight-light font-colour-light-grey"><%= message.created_at.strftime("%l:%M %p") %></p>
   </div>
 </div>

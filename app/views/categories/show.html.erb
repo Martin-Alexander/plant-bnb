@@ -1,8 +1,8 @@
-<h1 class="plants-index__title font-title font-colour-black font-weight-medium font-size-36"><%= pluralize(@plants.count, "result") %> in "<%= @category.name.capitalize %>"</h1>
+<h1 class="plants-index__title font-title font-colour-black font-weight-medium font-size-24"><%= pluralize(@plants.count, "result") %> in "<%= @category.name.capitalize %>"</h1>
 
 <div class="plants-index-card-container">
   <% @plants.each do |plant| %>
     <%= render "plants/plant", plant: plant %>
   <% end %>
-  <div style="width: 400px;"></div>
+  <div style="width: 320px;"></div>
 </div>

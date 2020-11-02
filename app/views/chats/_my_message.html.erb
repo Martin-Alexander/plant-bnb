@@ -1,14 +1,11 @@
 <div class="my-message">
   <div class="my-message__left">
     <div class="my-message__bubble">
-      <p class="font-text font-weight-light font-size-20 my-message__content"><%= message.content %></p>
+      <p class="font-text font-weight-light font-size-16 my-message__content"><%= message.content %></p>
     </div>
-    <p class="font-text font-size-16 font-weight-light font-colour-light-grey"><%= message.created_at.strftime("%l:%M %p") %></p>
+    <p class="font-text font-size-12 font-weight-light font-colour-light-grey"><%= message.created_at.strftime("%l:%M %p") %></p>
   </div>
   <div class="my-message__right">
-    <div>
-      <%= cl_image_tag message.sender.profile_picture.key, width: 60, height: 60, crop: :fill, class: "message__profile-picture" %>
-      
-    </div>
+    <div class="message__profile-picture" style="background-image: url('<%= cl_image_path message.sender.profile_picture.key %>');"></div>
   </div>
 </div>
