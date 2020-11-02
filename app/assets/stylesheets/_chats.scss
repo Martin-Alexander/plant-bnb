@@ -147,16 +147,16 @@
   border-radius: 6px 6px 0px 6px;
 }
 
-#message_content {
-  border: solid 1px #EEEEEE !important;
-  height: 40px !important;
-  padding-right: 45px;
-}
-
 .message-content {
   position: relative;
   margin-top: -1px !important;
   // width: 802px;
+  
+  input {
+    border: solid 1px #EEEEEE !important;
+    height: 40px !important;
+    padding-right: 45px;
+  }
 }
 
 .message_content {
