@@ -72,7 +72,7 @@
 
     <% if @plant_interest.persisted? %>
       <div class="plants-show__contact-form">
-        <h2 class="plants-show__form-title font-text font-colour-charcoal font-size-14 font-weight-medium">You've already contacted <%= @plant.user.name %> regarding this plant</h2>
+        <h2 class="plants-show__form-title font-text font-colour-charcoal font-size-14 font-weight-medium">You've contacted <%= @plant.user.name %> about this plant. Click <%= link_to "here", chat_path(@chat), class: "font-colour-black font-weight-medium text-decoration-underline" %> to chat.</h2>
       </div>
     <% elsif policy(@plant_interest).create? && current_user != @plant.user %>
       <div class="plants-show__contact-form">

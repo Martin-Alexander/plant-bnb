@@ -16,6 +16,8 @@ class PlantInterestsController < ApplicationController
           title: "<strong>#{current_user.name}</strong> is interested in \"<strong>#{plant.title}</strong>\"",
           message_preview: message.content
         )
+
+        redirect_to plant_path(plant)
       end
     rescue ActiveRecord::RecordInvalid
     end

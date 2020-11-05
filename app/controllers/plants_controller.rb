@@ -15,6 +15,7 @@ class PlantsController < ApplicationController
     @plant = Plant.find(params[:id])
     @plant_interest = PlantInterest.find_or_initialize_by(plant: @plant, user: current_user)
     @users_other_plants = policy_scope(@plant.user.plants).where.not(id: @plant.id).includes(:user)
+    @chat = Chat.find_by(user: current_user, other_user: @plant.user)
     authorize(@plant)
   end
 
