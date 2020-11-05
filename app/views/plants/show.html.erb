@@ -35,7 +35,7 @@
     <div class="plant-picture-gallery" data-controller="plant-pictures-gallery">
       <div
         class="plant-picture-gallery__main-picture"
-        style="background-image: url('<%= cl_image_path @plant.cover_photo.key %>')"
+        style="background-image: url('<%= cl_image_path @plant.cover_photo.key, height: 380, crop: :scale %>')"
         data-target="plant-pictures-gallery.mainPicture"
       ></div>
 
@@ -43,7 +43,7 @@
         <div class="plant-picture-gallery__thumbnails">
           <div
             class="plant-picture-gallery__thumbnail plant-picture-gallery__thumbnail--selected"
-            style="background-image: url('<%= cl_image_path @plant.cover_photo.key %>')"
+            style="background-image: url('<%= cl_image_path @plant.cover_photo.key, height: 380, crop: :scale %>')"
             data-action="click->plant-pictures-gallery#selectPicture"
             data-target="plant-pictures-gallery.thumbnail"
             data-active="true"
@@ -52,7 +52,7 @@
           <% @plant.pictures.each do |picture| %>
             <div
               class="plant-picture-gallery__thumbnail"
-              style="background-image: url('<%= cl_image_path picture.key %>')"
+              style="background-image: url('<%= cl_image_path picture.key, height: 380, crop: :scale %>')"
               data-action="click->plant-pictures-gallery#selectPicture"
               data-target="plant-pictures-gallery.thumbnail"
               data-image-url="<%= cl_image_path picture.key %>"
@@ -90,12 +90,14 @@
         <p class="font-text font-colour-grey font-weight-regular font-size-14"><%= @plant.user.name %></p>
         <div class="plant-show__plant-owner-rating">
           <p>
-            <% @plant.user.average_rating.floor.times do %>
-              <%= image_tag "star--filled.svg", style: "margin-left: -5px;", width: 20, height: 20 %>
-            <% end %>
+            <% if @plant.user.average_rating %>
+              <% @plant.user.average_rating.floor.times do %>
+                <%= image_tag "star--filled.svg", style: "margin-left: -5px;", width: 20, height: 20 %>
+              <% end %>
 
-            <% (5 - @plant.user.average_rating.floor).times do %>
-              <%= image_tag "star.svg", style: "margin-left: -5px;", width: 20, height: 20 %>
+              <% (5 - @plant.user.average_rating.floor).times do %>
+                <%= image_tag "star.svg", style: "margin-left: -5px;", width: 20, height: 20 %>
+              <% end %>
             <% end %>
           </p>
           <p class="font-text font-colour-grey font-weight-regular font-size-14"><%= @plant.user.average_rating %></p>
@@ -105,30 +107,62 @@
       </div>
     </div>
 
-    <div class="plants-show__other-plants">
-      <h3 class="plants-show__other-plants-title font-text font-size-18 font-weight-regular font-colour-grey"><%= @plant.user.name %>'s other plants</h3>
+    <% if @users_other_plants.any? %>
+      <div class="plants-show__other-plants">
+        <h3 class="plants-show__other-plants-title font-text font-size-18 font-weight-regular font-colour-grey"><%= @plant.user.name %>'s other plants</h3>
 
-      <% @users_other_plants.each do |plant| %>
-        <div class="users-other-plant-card">
-          <%= link_to plant_path(plant) do %>
-            <div class="users-other-plant-card__picture" style="background-image: url('<%= cl_image_path plant.cover_photo.key %>');"></div>
-          <% end %>
+        <% @users_other_plants.each do |plant| %>
+          <div class="users-other-plant-card">
+            <%= link_to plant_path(plant) do %>
+              <div class="users-other-plant-card__picture" style="background-image: url('<%= cl_image_path plant.cover_photo.key %>');"></div>
+            <% end %>
 
-          <div class="users-other-plant-card__body">
-            <%= link_to plant.title, plant_path(plant), class: "text-decoration-none font-text font-weight-regular font-size-18 font-colour-charcoal" %>
+            <div class="users-other-plant-card__body">
+              <%= link_to plant.title, plant_path(plant), class: "text-decoration-none font-text font-weight-regular font-size-18 font-colour-charcoal" %>
 
-            <div class="users-other-plant-card__bottom">
-              <p class="font-text font-weight-regular font-size-12 font-colour-light-grey">Montreal | <%= plant.created_at.strftime("%b %e, %Y") %></p>
+              <div class="users-other-plant-card__bottom">
+                <p class="font-text font-weight-regular font-size-12 font-colour-light-grey">Montreal | <%= plant.created_at.strftime("%b %e, %Y") %></p>
 
-              <% if plant.price_cents == 0 %>
-                <p class="font-text font-weight-medium font-size-28 font-colour-charcoal">FREE</p>
-              <% else %>
-                <p class="font-text font-weight-medium font-size-28 font-colour-charcoal"><%= number_to_currency plant.price_cents / 100 %></p>
-              <% end %>
+                <% if plant.price_cents == 0 %>
+                  <p class="font-text font-weight-medium font-size-28 font-colour-charcoal">FREE</p>
+                <% else %>
+                  <p class="font-text font-weight-medium font-size-28 font-colour-charcoal"><%= number_to_currency plant.price_cents / 100 %></p>
+                <% end %>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
+
+
+<%#
+dracena / dragon plant,Alex,house plants,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410932/plant-bnb/house-plants/dracaena-1.png
+maidenhair fern,Aline,house plants,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410932/plant-bnb/house-plants/maidenhair-fern-4.jpg
+potted dracena plant,Alina,house plants,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410932/plant-bnb/house-plants/dracaena-4.jpg
+small maidenhair fern,Lea,house plants,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410932/plant-bnb/house-plants/maidenhair-fern-3.jpg
+maidenhair house plant,MG,house plants,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410931/plant-bnb/house-plants/maidenhair-fern-1.jpg
+maidenhair / Adiantum fern,Sangwoo,house plants,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410931/plant-bnb/house-plants/maidenhair-fern-2.jpg
+small dracena (dragon plant),Stephane,house plants,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410931/plant-bnb/house-plants/dracaena-2.jpg
+large desert rose,Camille,trees,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410929/plant-bnb/house-plants/desert-rose.jpg
+potted desert rose,Camille,house plants,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410928/plant-bnb/house-plants/desert-rose-3.jpg
+large indoor desert rose,Lea,house plants,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410928/plant-bnb/house-plants/desert-rose-2.jpg
+desert rose,Sangwoo,house plants,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410928/plant-bnb/house-plants/desert-rose-4.jpg
+hydrangea / hortensia,Sangwoo,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410930/plant-bnb/flowers/hydrangea-3.jpg
+12 sunflowers,Stephane,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410928/plant-bnb/flowers/sunflower-2.jpg
+sunflowers (3),MG,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410928/plant-bnb/flowers/sunflower-1.jpg
+beautiful red geraniums,Lea,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410927/plant-bnb/flowers/geraniums-1.jpg
+wonderful pink hydrangeas,Lea,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410927/plant-bnb/flowers/hydrangea-2.jpg
+hydrangeas -- blue,Alex,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410926/plant-bnb/flowers/hydrangea-1.jpg
+potted geraniums (pink),Alex,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410926/plant-bnb/flowers/geraniums-2.jpg
+purple outdoor aster,MG,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410924/plant-bnb/flowers/aster-2.jpg
+small potted sunflowers,Antoine,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410923/plant-bnb/flowers/sunflower-3.jpg
+asters flowers,Antoine,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410923/plant-bnb/flowers/aster-1.jpg
+blue african lilies,Sangwoo,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410923/plant-bnb/flowers/african-lily-1.jpg
+sunflower (individiual),MG,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410922/plant-bnb/flowers/sunflower-4.jpg
+beautiful orange alstromeria (Peruvian lily),Camille,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410922/plant-bnb/flowers/alstromeria-1.jpg
+outdoor african lilies,Aline,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410921/plant-bnb/flowers/african-lily-3.jpg
+Peruvian lily / alstromeria,Sangwoo,flowers,https://res.cloudinary.com/dr6nzroni/image/upload/v1604410921/plant-bnb/flowers/alstromeria-2.jpg
+%>

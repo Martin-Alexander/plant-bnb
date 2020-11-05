@@ -34,8 +34,10 @@
 
 .plant-picture-gallery__main-picture {
   height: 380px;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
+  background-color: black;
 }
 
 .plant-picture-gallery__thumbnail {
@@ -154,4 +156,5 @@
 .users-other-plant-card__picture {
   height: 140px;
   background-size: cover;
+  background-position: center;
 }
