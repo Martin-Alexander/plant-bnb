@@ -1,11 +1,30 @@
-<div class="other-message">
+<% collapse_with_next_message = (
+  next_message&.sender_id == message.sender_id &&
+  next_message&.created_at&.year == message.created_at.year &&
+  next_message&.created_at&.month == message.created_at.month &&
+  next_message&.created_at&.day == message.created_at.day &&
+  next_message&.created_at&.hour == message.created_at.hour &&
+  next_message&.created_at&.min == message.created_at.min
+) %>
+
+<% if collapse_with_next_message %>
+  <div class="other-message other-message--collapsed">
+<% else %>
+  <div class="other-message">
+<% end %>
   <div class="other-message__left">
-    <div class="message__profile-picture" style="background-image: url('<%= cl_image_path message.sender.profile_picture.key %>');"></div>
+    <% if collapse_with_next_message %>
+      <div class="message__profile-picture--none"></div>
+    <% else %>
+      <div class="message__profile-picture" style="background-image: url('<%= cl_image_path message.sender.profile_picture.key %>');"></div>
+    <% end %>
   </div>
   <div class="other-message__right">
     <div class="other-message__bubble">
       <p class="other-message__content font-text font-weight-light font-size-16"><%= message.content %></p>
     </div>
-    <p class="font-text font-size-12 font-weight-light font-colour-light-grey"><%= message.created_at.strftime("%l:%M %p") %></p>
+    <% if !collapse_with_next_message %>
+      <p class="font-text font-size-12 font-weight-light font-colour-light-grey"><%= message.created_at.strftime("%l:%M %p") %></p>
+    <% end %>
   </div>
 </div>

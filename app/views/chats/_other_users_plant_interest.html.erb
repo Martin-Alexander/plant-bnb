@@ -6,11 +6,10 @@
     <div class="other-message__plant-interest-picture" style="background-image: url('<%= cl_image_path plant_interest.plant.cover_photo.key, height: 380, crop: :scale %>');"></div>
     <div>
       <% if plant_interest.user == current_user %>
-        <span class="font-text font-size-12 font-weight-light font-colour-light-grey">You are interested in <%= plant_interest.plant.user.name %>'s' plant "<%= plant_interest.plant.title %>"&nbsp;&nbsp;—&nbsp;&nbsp;</span>
+        <span class="font-text font-size-12 font-weight-light font-colour-light-grey">You are interested in <%= plant_interest.plant.user.name %>'s' plant "<%= plant_interest.plant.title %>"</span>
       <% else %>
-        <span class="font-text font-size-12 font-weight-light font-colour-light-grey"><%= plant_interest.user.name %> is interested in your plant "<%= plant_interest.plant.title %>"&nbsp;&nbsp;—&nbsp;&nbsp;</span>
+        <span class="font-text font-size-12 font-weight-light font-colour-light-grey"><%= plant_interest.user.name %> is interested in your plant "<%= plant_interest.plant.title %>"</span>
       <% end %>
-      <span class="font-text font-size-12 font-weight-light font-colour-light-grey"><%= plant_interest.created_at.strftime("%l:%M %p") %></span>
     </div>
   </div>
 </div>

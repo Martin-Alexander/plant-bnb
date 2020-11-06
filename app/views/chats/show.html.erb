@@ -7,12 +7,14 @@
 
 <div data-controller="chat" data-chat-id="<%= @chat.id %>">
   <div class="chat-container" data-target="chat.messageList">
-    <% @messages_and_plant_interest.each do |record| %>
+    <% @messages_and_plant_interest.each_with_index do |record, index| %>
       <% if record.class == Message %>
+        <% next_message = @messages_and_plant_interest[(index + 1)..-1].find { |_record| _record.class == Message } %>
+
         <% if record.sender == current_user %>
-          <%= render "chats/my_message", message: record %>
+          <%= render "chats/my_message", message: record, next_message: next_message %>
         <% else %>
-          <%= render "chats/other_users_message", message: record %>
+          <%= render "chats/other_users_message", message: record, next_message: next_message %>
         <% end %>
       <% elsif record.class == PlantInterest %>
         <% if record.user == current_user %>
@@ -25,8 +27,8 @@
   </div>
 
   <div class="input string message-content">
-    <%= simple_form_for [@chat, Message.new], html: { data: { action: "submit->chat#clearInput", target: "chat.form" }} do |f| %>
-      <div class="message-submit-button" data-action="click->chat#submitForm">
+    <%= simple_form_for [@chat, Message.new], html: { data: { action: "submit->chat#submitWithReflex", target: "chat.form", chat_id: @chat.id }} do |f| %>
+      <div class="message-submit-button" data-action="click->chat#submitWithReflex">
         <%= image_tag "paper_airplane.svg", width: 20 %>
       </div>
       <%= f.input :content, label: false, as: :string, input_html: { class: "", placeholder: "Message #{@chat.other_user.name}...", autocomplete: "off", autofocus: true, data: { target: "chat.input" }} %>

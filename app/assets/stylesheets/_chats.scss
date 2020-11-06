@@ -71,6 +71,10 @@
   margin-bottom: 12px;
 }
 
+.other-message--collapsed {
+  margin-bottom: -22px;
+}
+
 .other-message__left {
   margin-right: 8px;
   display: flex;
@@ -115,10 +119,20 @@
   background-position: center;
 }
 
+.message__profile-picture--none {
+  margin-bottom: 22px;
+  width: 40px;
+  height: 40px;
+}
+
 .my-message {
   justify-content: flex-end;
   display: flex;
   margin-bottom: 12px;
+}
+
+.my-message--collapsed {
+  margin-bottom: -22px;
 }
 
 .my-message__right {

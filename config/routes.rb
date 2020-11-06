@@ -17,6 +17,6 @@ Rails.application.routes.draw do
   resources :categories, only: [:show]
 
   resources :chats, only: [:show, :index] do
-    resources :messages, only: [:create]
+    resources :messages, only: [:create] # I'm too lazy to replace simple form on chats#show, so I'm leaving this here to avoid the error
   end
 end
