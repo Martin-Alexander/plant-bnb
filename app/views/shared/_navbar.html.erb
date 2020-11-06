@@ -35,7 +35,7 @@
               <div class="notifications-list">
                 <% current_user.notifications.order(:read).order(created_at: :desc).each do |notification| %>
                   <div class="notification-list-item">
-                    <%= link_to chat_path(notification.chat), class: "notification-list-item__inner" do %>
+                    <%= link_to chat_path(notification.chat_id), class: "notification-list-item__inner" do %>
                       <p class="notification-list-item__title font-text font-colour-black font-weight-regular font-size-14"><%= notification.title.html_safe %></p>
                       <p class="notification-list-item__message-preview font-text font-colour-grey font-size-14 font-weight-light">"<%= notification.message_preview.truncate(100) %>"</p>
                       <div class="notification-list-item__bottom">
