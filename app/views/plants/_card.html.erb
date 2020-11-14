@@ -1,7 +1,11 @@
 <div class="plant-card">
   <%= link_to plant_path(plant) do %>
   
-    <div class="plant-card__cover-photo" style="background-image: url('<%= cl_image_path plant.cover_photo.key %>');" data-target="plant-cards.card" data-background-image-url="<%= cl_image_path plant.cover_photo.key %>"></div>
+    <div
+      class="plant-card__cover-photo"
+      data-target="plant-cards.card"
+      data-background-image-url="<%= cl_image_path plant.cover_photo.key, width: 320 * 2, height: 180 * 2, crop: :fill %>"
+    ></div>
   <% end %>
 
   <div class="plant-card__avatar" style="background-image: url('<%= cl_image_path plant.user.profile_picture.key %>');"></div>

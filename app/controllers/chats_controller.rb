@@ -2,7 +2,7 @@ class ChatsController < ApplicationController
   def index
     authorize(Chat)
 
-  @old_chats = policy_scope(Chat).where(number_of_unread_messages: 0)
+    @old_chats = policy_scope(Chat).where(number_of_unread_messages: 0)
     @new_chats = policy_scope(Chat).where("number_of_unread_messages > 0")
   end
 

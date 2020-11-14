@@ -12,12 +12,12 @@ export default class PlantCardsController extends ApplicationController {
         image.src = plantPhotoDiv.dataset.backgroundImageUrl; 
         image.onload = () => res();
         image.onerror = () => rej();
+        plantPhotoDiv.style.backgroundImage = `url(${plantPhotoDiv.dataset.backgroundImageUrl})`;
       });
     })
   
     Promise.all(backgroundImagesDownloaded).then(() => {
       this.containerTarget.style.display = "flex";
-      this.spinnerTarget.style.display = "none";
     });
   }
 }
