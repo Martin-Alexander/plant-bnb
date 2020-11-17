@@ -11,6 +11,7 @@ class PlantsController < ApplicationController
         { favourites: :user }
       ])
       .with_attached_cover_photo
+      .order(updated_at: :desc)
 
     if params[:search].present?
       @plants = @plants.search_by_title_and_description(params[:search])

@@ -9,11 +9,11 @@
     <%= f.input :description, hint: "Maximum of 30 characters" %>
     <%= f.input :price, hint: "Leave blank if your plant is free", input_html: { autocomplete: "off", value: nil } %>
     <%= f.input :cover_photo, required: true %>
-    <%= f.input :pictures, hint: "Maximum of 3 pictures", input_html: { multiple: true } %>
+    <%= f.input :pictures, hint: "Maximum of 4 pictures", input_html: { multiple: true } %>
     <%= f.association :categories, input_html: { class: "select2" } %>
 
     <div>
-      <%= f.submit "Submit for Approval"%>
+      <%= f.submit "Post your plant" %>
     </div>
   <% end %>
 </div>

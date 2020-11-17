@@ -63,7 +63,9 @@
     </div>
 
     <h3 class="plant-show__description-header font-text font-weight-regular font-colour-grey font-size-18">Description</h3>
-    <p class="font-text font-weight-light font-colour-grey font-size-16"><%= @plant.description %></p>
+    <% @plant.description.split("\n").each do |description_paragraph| %>
+      <p class="font-text font-weight-light font-colour-grey font-size-16" style="margin-bottom: 16px;"><%= description_paragraph %></p>
+    <% end %>
   </div>
 
   <div class="plants-show__right-column">
@@ -99,7 +101,7 @@
                 <%= image_tag "star.svg", style: "margin-left: -5px;", width: 20, height: 20 %>
               <% end %>
             </p>
-            <p class="font-text font-colour-grey font-weight-regular font-size-14"><%= @plant.user.average_rating %></p>
+            <p class="font-text font-colour-grey font-weight-regular font-size-14"><%= @plant.user.average_rating.round(1) %></p>
             <p class="font-text font-colour-light-grey font-weight-regular font-size-14">(<%= @plant.user.number_of_ratings %> reviews)</p>
           <% end %>
         </div>

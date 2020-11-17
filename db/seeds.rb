@@ -1,5 +1,3 @@
-srand(1)
-
 require "open-uri"
 require "csv"
 
@@ -27,7 +25,7 @@ shrubs_category          = Category.create!(name: "shrubs")
 trees_category           = Category.create!(name: "trees")
 artificial_category      = Category.create!(name: "artificial")
 
-admin = User.new(name: "Martin", email: "admin@email.com", password: "123456")
+admin = User.new(name: "Admin", email: "admin@email.com", password: "123456")
 admin.profile_picture.attach(io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1603708766/plant-bnb/martin.jpg"), filename: "admin", content_type: "image/jpg")
 admin.save!
 
@@ -67,116 +65,113 @@ alex = User.new(name: "Alex", email: "alex@email.com", password: "123456")
 alex.profile_picture.attach(io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1604297653/plant-bnb/alex.jpg"), filename: "alex", content_type: "image/jpg")
 alex.save!
 
-CSV.read(Rails.root.join("db/seed_data.csv"), { headers: true }).each do |row|
+# Plant buyer
+
+richard = User.new(name: "Richard", email: "richard@email.com", password: "123456")
+richard.profile_picture.attach(io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605630724/plant-bnb/richard.jpg"), filename: "richard", content_type: "image/jpg")
+richard.save!
+
+# Plant owner
+
+martin = User.new(name: "Martin", email: "martin@email.com", password: "123456")
+martin.profile_picture.attach(io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1603708766/plant-bnb/martin.jpg"), filename: "martin", content_type: "image/jpg")
+martin.save!
+
+# First free plant that Richard gets
+
+peace_lily = Plant.new(
+  user: stephane,
+  price_cents: 0,
+  title: "Potted peace lily (free)",
+  categories: [house_plants_category, flowers_category],
+  description: "I'm moving and I need to get rid of all my plants. This is a beautiful white peace lily I've had for 2 years. Should be kept in low sun light and watered every day.\nPickups only.",
+  created_at: DateTime.now - 4.days
+)
+peace_lily.cover_photo.attach(io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605563081/plant-bnb/peace-lily/1515164846613.jpg"), filename: "pl", content_type: "image/jpg")
+
+picture_attriubtes = [
+  { io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605563082/plant-bnb/peace-lily/DSCF0200.jpg"), filename: "pl", content_type: "image/jpg" },
+  { io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605563081/plant-bnb/peace-lily/peace_plant_georgina198_gettyimages.jpg"), filename: "pl", content_type: "image/jpg" },
+  { io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605563081/plant-bnb/peace-lily/96d704dc5b44d784678f358d2a0e6f2c.png"), filename: "pl", content_type: "image/png" },
+  { io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605563082/plant-bnb/peace-lily/DSCF0200.jpg"), filename: "pl", content_type: "image/jpg" }
+]
+
+picture_attriubtes.each do |picture_attrs|
+  peace_lily.pictures.attach(picture_attrs)
+end
+
+peace_lily.save!
+
+# The hydrangea that Richard looks at that's too expensive
+
+hydrangea_expensive = Plant.new(
+  user: stephane,
+  price_cents: 4000,
+  title: "Beautiful light blue hydrangea house plant",
+  categories: [house_plants_category, flowers_category],
+  description: "Keep the soil moist. Dry soil can be the death of this plant. Leaves that turn yellow and fall off are a sign of dry soil. Flowering plants are thirsty, so it's a good idea to check the soil every day while in bloom.\nHydrangea pruning. Mophead hydrangeas don't need to be pruned back unless you want to control their size. Cutting off about 1/3 of the oldest stems will give you a fuller plant. When to prune hydrangeas: After blossoms fade. Hydrangea shrubs are perennials. Woody stems are densely covered with big, oval leaves that are deep green.",
+  created_at: DateTime.now - 8.days
+)
+hydrangea_expensive.cover_photo.attach(io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605562905/plant-bnb/hydrangea-1/indoor-hydrangea.jpg"), filename: "hydrangea", content_type: "image/jpg")
+
+picture_attriubtes = [
+  { io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605562905/plant-bnb/hydrangea-1/pl2000034434.jpg"), filename: "hydrangea", content_type: "image/jpg" },
+  { io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605562905/plant-bnb/hydrangea-1/btgh-hydrangea2.jpg"), filename: "hydrangea", content_type: "image/jpg" },
+  { io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605562905/plant-bnb/hydrangea-1/c9dd23b2b52c893da8b77cd896f92bb8.jpg"), filename: "hydrangea", content_type: "image/jpg" },
+  { io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605562905/plant-bnb/hydrangea-1/91f-hlDXWoL._AC_SL1500_.jpg"), filename: "hydrangea", content_type: "image/jpg" }
+]
+
+picture_attriubtes.each do |picture_attrs|
+  hydrangea_expensive.pictures.attach(picture_attrs)
+end
+
+hydrangea_expensive.save!
+
+# The hydrangea that Richard looks at that's just right
+
+hydrangea_cheap = Plant.new(
+  user: aline,
+  price_cents: 1000,
+  title: "White Indoor Hydrangea (Pickups Only)",
+  categories: [house_plants_category, flowers_category],
+  description: "Care instructions:\n\nHydrangea pruning. Mophead hydrangeas don't need to be pruned back unless you want to control their size. Cutting off about 1/3 of the oldest stems will give you a fuller plant. When to prune hydrangeas: After blossoms fade. Hydrangea shrubs are perennials. Woody stems are densely covered with big, oval leaves that are deep green.\nKeep the soil moist. Dry soil can be the death of this plant. Leaves that turn yellow and fall off are a sign of dry soil. Flowering plants are thirsty, so it's a good idea to check the soil every day while in bloom.",
+  created_at: DateTime.now - 12.days
+)
+hydrangea_cheap.cover_photo.attach(io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605562947/plant-bnb/hydrangea-2/hydrangea-mophead-white-visi12073-x750.jpg"), filename: "hydrangea", content_type: "image/jpg")
+
+picture_attriubtes = [
+  { io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605562947/plant-bnb/hydrangea-2/Bengert-Greenhouses-Hydrangeas-2-1024x683.jpg"), filename: "hydrangea", content_type: "image/jpg" },
+  { io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605562947/plant-bnb/hydrangea-2/pl2000034432_card3_lg.jpg"), filename: "hydrangea", content_type: "image/jpg" },
+  { io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605562947/plant-bnb/hydrangea-2/c8ec4b6a1fb0b01bade4ca89c9f93e02.jpg"), filename: "hydrangea", content_type: "image/jpg" },
+  { io: URI.open("https://res.cloudinary.com/dr6nzroni/image/upload/v1605562948/plant-bnb/hydrangea-2/23807.jpg"), filename: "hydrangea", content_type: "image/jpg" }
+]
+
+picture_attriubtes.each do |picture_attrs|
+  hydrangea_cheap.pictures.attach(picture_attrs)
+end
+
+hydrangea_cheap.save
+
+csv_plants = CSV.read(Rails.root.join("db/seed_data.csv"), { headers: true }).map do |row|
   plant = Plant.new({
     user: User.find_by_name(row["user"]),
     price_cents: row["price"].to_i,
-    title: row["name"].send(["capitalize", "titleize", "upcase", "downcase"].sample),
+    title: row["name"],
     description: "Water slowly and deeply every 2 days and keep in moderate sunlight.",
-    categories: [Category.find_by_name(row["primary_category"])]
+    categories: [Category.find_by_name(row["primary_category"])],
+    created_at: DateTime.now - (0...60).to_a.sample.days
   })
 
   file_extension = row["cover_photo_url"].match(/\.(\w+)$/)[1]
-  plant.cover_photo.attach(io: URI.open(row["cover_photo_url"]), filename: row["name"], content_type: "image/#{file_extension}")
+  plant.cover_photo.attach(io: URI.open(row["cover_photo_url"]), filename: "plant", content_type: "image/#{file_extension}")
   plant.save!
+  plant
 end
 
-# sangwoos_plant_1 = create_plant_from_existing_cl_file(
-#   "v1603708107/plant-bnb/plant-1",
-#   user: sangwoo,
-#   price_cents: 900,
-#   title: "Plante hypoeste rose/pink polka dots plant",
-#   description: "Indoor evergreen plant, in different sizes. Easy to care.",
-#   categories: [trees_category, for_your_garden_category]
-# )
+[5, 5, 5, 5, 5, 4, 4, 1].each { |stars| Rating.create(user: admin, plant: stephane.plants.first, stars: stars) }
+[5, 4, 4].each { |stars| Rating.create(user: admin, plant: aline.plants.first, stars: stars) }
 
-# sangwoos_plant_2 = create_plant_from_existing_cl_file(
-#   "v1603708107/plant-bnb/plant-2",
-#   user: sangwoo,
-#   price_cents: 800,
-#   title: "Plante mauve oxalis",
-#   description: "Indoor evergreen plant, in different sizes. Easy to care.",
-#   categories: [house_plants_category, artificial_category]
-# )
-
-# sangwoos_plant_3 = create_plant_from_existing_cl_file(
-#   "v1603708107/plant-bnb/plant-3",
-#   user: sangwoo,
-#   price_cents: 0,
-#   title: "Trinidad Moruga Scorpion bio/ Organic trinidad Moruga ",
-#   description: "Indoor evergreen plant, in different sizes. Easy to care.",
-#   categories: [trees_category, shrubs_category]
-# )
-
-# sangwoos_plant_4 = create_plant_from_existing_cl_file(
-#   "v1603708107/plant-bnb/plant-4",
-#   user: sangwoo,
-#   price_cents: 900,
-#   title: "28'' Artificial Foliage Plant",
-#   description: "Indoor evergreen plant, in different sizes. Easy to care.",
-#   private: true,
-#   categories: [trees_category, shrubs_category, office_plants_category]
-# )
-
-# alines_plant_1 = create_plant_from_existing_cl_file(
-#   "v1603708107/plant-bnb/plant-5",
-#   user: aline,
-#   price_cents: 900,
-#   title: "Artificial Fiddle Leaf Fig Plant",
-#   description: "Indoor evergreen plant, in different sizes. Easy to care.",
-#   categories: [trees_category, office_plants_category]
-# )
-
-# alines_plant_2 = create_plant_from_existing_cl_file(
-#   "v1603708107/plant-bnb/plant-6",
-#   user: aline,
-#   price_cents: 900,
-#   title: "Plante araignée frisée/ curly spider plant",
-#   description: "Indoor evergreen plant, in different sizes. Easy to care.",
-#   categories: [trees_category, artificial_category]
-# )
-
-# alines_plant_3 = create_plant_from_existing_cl_file(
-#   "v1603708107/plant-bnb/plant-7",
-#   user: aline,
-#   price_cents: 900,
-#   title: "Bulbes de Canna feuilles rouge",
-#   description: "Indoor evergreen plant, in different sizes. Easy to care.",
-#   categories: [artificial_category, office_plants_category]
-# )
-
-# alines_plant_4 = create_plant_from_existing_cl_file(
-#   "v1603708107/plant-bnb/plant-8",
-#   user: aline,
-#   price_cents: 0,
-#   title: "Mother-in-law-tongue/Snake Plant/Sansevieria t",
-#   description: "Indoor evergreen plant, in different sizes. Easy to care.",
-#   categories: [trees_category]
-# )
-
-# alines_plant_5 = create_plant_from_existing_cl_file(
-#   "v1603708108/plant-bnb/plant-9",
-#   user: aline,
-#   price_cents: 1100,
-#   title: "PLANTES DE FIGUES EN POT",
-#   description: "Indoor evergreen plant, in different sizes. Easy to care.",
-#   private: true,
-#   categories: [trees_category, trees_category]
-# )
-
-# Favourite.create!(user: sangwoo, plant: alines_plant_1)
-# Favourite.create!(user: aline, plant: sangwoos_plant_1)
-
-# Rating.create!(user: sangwoo, plant: alines_plant_2, stars: 5)
-
-# Rating.create!(user: aline, plant: sangwoos_plant_2, stars: 5)
-
-# PlantInterest.create!(user: aline, plant: sangwoos_plant_2)
-# message = Message.create!(sender: aline, receiver: sangwoo, content: "Hey Martin! Can I come pick up this plant tomorrow morning?")
-# alines_chat_with_sangwoo = Chat.create!(user: aline, other_user: sangwoo, number_of_unread_messages: 0)
-# sangwoos_chat_with_aline = Chat.create!(user: sangwoo, other_user: aline, number_of_unread_messages: 1)
-# Notification.create!(
-#   chat: sangwoos_chat_with_aline,
-#   title: "<strong>#{aline.name}</strong> is interested in your plant \"<strong>#{sangwoos_plant_2.title}</strong>\"",
-#   message_preview: message.content
-# )
+# Plant position swaps
+Plant.all.to_a.shuffle.each(&:touch) # randomly touch all plants
+peace_lily.touch # touch peace lily to bring it to the top
+csv_plants.shuffle.last(7).each(&:touch) # bring 4 random csv plants to the top

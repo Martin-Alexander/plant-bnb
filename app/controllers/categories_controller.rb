@@ -15,5 +15,6 @@ class CategoriesController < ApplicationController
         { favourites: :user }
       ])
       .with_attached_cover_photo
+      .order(updated_at: :desc)
   end
 end
