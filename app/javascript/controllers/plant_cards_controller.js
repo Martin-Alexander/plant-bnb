@@ -15,9 +15,9 @@ export default class PlantCardsController extends ApplicationController {
         plantPhotoDiv.style.backgroundImage = `url(${plantPhotoDiv.dataset.backgroundImageUrl})`;
       });
     })
-  
+
     Promise.all(backgroundImagesDownloaded).then(() => {
       this.containerTarget.style.display = "flex";
-    });
+    }).catch(() => this.containerTarget.style.display = "flex");
   }
 }
