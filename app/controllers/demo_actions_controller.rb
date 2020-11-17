@@ -29,7 +29,7 @@ class DemoActionsController < ApplicationController
   def alex_proposal
     alex = User.find_by_name("Alex")
 
-    plant = Plant.last
+    plant = Plant.find_by_title("Potted Dracena (Dragon Plant)")
     plant_interest = PlantInterest.new(plant: plant, user: alex)
 
     begin
