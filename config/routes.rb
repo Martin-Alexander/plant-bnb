@@ -19,4 +19,11 @@ Rails.application.routes.draw do
   resources :chats, only: [:show, :index] do
     resources :messages, only: [:create] # I'm too lazy to replace simple form on chats#show, so I'm leaving this here to avoid the error
   end
+
+  resources :demo_actions, only: [:index] do
+    collection do
+      get :steph_response
+      get :alex_proposal
+    end
+  end
 end
