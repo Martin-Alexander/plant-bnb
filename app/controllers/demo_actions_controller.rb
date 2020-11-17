@@ -10,7 +10,7 @@ class DemoActionsController < ApplicationController
     steph_chat = steph.chats.first
     richard_chat = richard.chats.first
 
-    message = Message.create!(sender: steph, receiver: richard, content: "Yup! That works fine for me. See you then.")
+    message = Message.create!(sender: steph, receiver: richard, content: "Yup! That works fine for me. See you then. My address is 123 Fake Street apartment #203 on the second floor.")
 
     richard_chat.number_of_unread_messages += 1
     richard_chat.save!
