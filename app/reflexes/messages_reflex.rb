@@ -10,7 +10,7 @@ class MessagesReflex < ApplicationReflex
 
       Notification.create!(
         chat: chat.other_users_chat,
-        title: "New message from <strong>#{current_user.name}</strong>",
+        title: "New message from <strong>#{current_user.name}</strong>", # TODO: XXS
         message_preview: message.content
       )
 
